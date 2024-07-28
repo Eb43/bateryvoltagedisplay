@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/appIcon"
+        android:layout_width="211dp"
+        android:layout_height="126dp"
+        android:layout_alignTop="@id/batvoltageTextView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="131dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="117dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/batvoltageTextView"
+        android:layout_width="400dp"
+        android:layout_height="65dp"
+        android:layout_above="@+id/voltageTextView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="179dp"
+        android:layout_marginBottom="30dp"
+        android:text="Battery Voltage:"
+        android:textAlignment="center"
+        android:textSize="34sp" />
+
+    <TextView
+        android:id="@+id/voltageTextView"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="-1mV"
+        android:textAlignment="center"
+        android:textSize="40sp" />
+
+    <Button
+        android:id="@+id/exitButton"
+        android:layout_width="152dp"
+        android:layout_height="79dp"
+        android:layout_below="@+id/voltageTextView"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="103dp"
+        android:layout_marginTop="183dp"
+        android:layout_marginEnd="140dp"
+        android:layout_marginBottom="13dp"
+        android:layoutDirection="inherit"
+        android:text="Exit"
+        android:textAlignment="center" />
+</RelativeLayout>

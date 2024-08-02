@@ -1,11 +1,11 @@
 package com.example.timenotification;
 
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.BatteryManager;
 import android.os.Build;
@@ -14,10 +14,9 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.view.View;
-
-
-
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -27,7 +26,9 @@ public class MainActivity extends Activity {
     private TextView voltageTextView;
     private Handler handler = new Handler();
     private int colorIndex = 0;
-
+    private CheckBox autostartCheckBox;
+    private static final String PREFS_NAME = "MyPrefs";
+    private static final String AUTO_START_KEY = "AutoStart";
     private int[] colors = new int[]{
             Color.parseColor("#A52A2A"),  // Brown
             Color.parseColor("#808080"),  // Grey
@@ -40,7 +41,23 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         voltageTextView = findViewById(R.id.voltageTextView);
+        autostartCheckBox = findViewById(R.id.autostartCheckBox);
         handler.postDelayed(updateVoltageTask, 500);
+
+        // Set initial state for the checkbox
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean isAutoStartEnabled = prefs.getBoolean(AUTO_START_KEY, false);
+        autostartCheckBox.setChecked(isAutoStartEnabled);
+
+        // Set checkbox change listener
+        autostartCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+                editor.putBoolean(AUTO_START_KEY, isChecked);
+                editor.apply();
+            }
+        });
 
         Button exitButton = findViewById(R.id.exitButton);
         exitButton.setOnClickListener(new View.OnClickListener() {

@@ -7,13 +7,17 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.util.Log;
+import android.graphics.drawable.Icon;
 import android.widget.RemoteViews;
+
 
 public class TimeNotificationService extends Service {
 
@@ -23,6 +27,8 @@ public class TimeNotificationService extends Service {
 
     private Handler handler;
     private Runnable runnable;
+    private Notification.Builder notificationBuilder;
+    private NotificationManager notificationManager;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -33,12 +39,23 @@ public class TimeNotificationService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "onCreate: Service created");
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         createNotificationChannel();
+
         handler = new Handler(Looper.getMainLooper());
+
+        notificationBuilder = new Notification.Builder(this, CHANNEL_ID)
+                .setContentTitle("Battery Voltage")
+                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .setOngoing(true);
+
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        notificationBuilder.setContentIntent(pendingIntent);
+
         runnable = new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "Runnable: Updating notification");
                 updateNotification();
                 handler.postDelayed(this, 1000); // Update every second
             }
@@ -49,7 +66,7 @@ public class TimeNotificationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand: Service started");
-        startForeground(NOTIFICATION_ID, createNotification());
+        startForeground(NOTIFICATION_ID, createNotification("0.0 V"));
         return START_STICKY;
     }
 
@@ -58,6 +75,7 @@ public class TimeNotificationService extends Service {
         super.onDestroy();
         Log.d(TAG, "onDestroy: Service destroyed");
         handler.removeCallbacks(runnable);
+        notificationManager.cancel(NOTIFICATION_ID);
     }
 
     private void createNotificationChannel() {
@@ -69,39 +87,36 @@ public class TimeNotificationService extends Service {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
 
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
             Log.d(TAG, "createNotificationChannel: Notification channel created");
         }
     }
 
-    private Notification createNotification() {
-        Log.d(TAG, "createNotification: Creating notification");
+    private Notification createNotification(String voltageText) {
+        Log.d(TAG, "createNotification: Creating notification with voltage: " + voltageText);
+
 
         RemoteViews notificationLayout = new RemoteViews(getPackageName(), R.layout.notification);
-        notificationLayout.setTextViewText(R.id.notification_text, getCurrentBatteryVoltage() + " V");
+        notificationLayout.setTextViewText(R.id.notification_text, voltageText + " V");
 
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        String shortVoltageText = voltageText.length() > 3 ? voltageText.substring(0, 3) : voltageText;
+        Bitmap voltageBitmap = BitmapUtils.textToBitmap(shortVoltageText);
+        Icon icon = Icon.createWithBitmap(voltageBitmap);
+        notificationBuilder.setSmallIcon(icon);
 
-        return new Notification.Builder(this, CHANNEL_ID)
-                .setContent(notificationLayout)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentIntent(pendingIntent)
-                .setPriority(Notification.PRIORITY_LOW)
-                .build();
+        notificationBuilder.setCustomContentView(notificationLayout);
+
+        return notificationBuilder.build();
     }
 
     private void updateNotification() {
-        Log.d(TAG, "updateNotification: Updating notification");
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(NOTIFICATION_ID, createNotification());
-        Log.d(TAG, "updateNotification: Notification updated");
+        String voltageText = getCurrentBatteryVoltage();  // + " V"
+        Log.d(TAG, "updateNotification: Updating notification with voltage: " + voltageText);
+        notificationManager.notify(NOTIFICATION_ID, createNotification(voltageText));
     }
 
     private String getCurrentBatteryVoltage() {
-        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        Intent batteryStatus = registerReceiver(null, ifilter);
+        Intent batteryStatus = registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         int voltage = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1) : -1;
         Log.d(TAG, "getCurrentBatteryVoltage: Current battery voltage is " + voltage);
         return voltage != -1 ? String.valueOf(voltage / 1000.0) : "Unknown";

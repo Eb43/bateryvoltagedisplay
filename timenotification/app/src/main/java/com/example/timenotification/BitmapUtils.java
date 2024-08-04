@@ -11,7 +11,7 @@ public class BitmapUtils {
 
     public static Bitmap textToBitmap(String text) {
         int textColor = Color.BLACK;
-        int textSize = 145;
+        int textSize = 130;
         Paint paint = new Paint();
         paint.setTextSize(textSize);
         paint.setColor(textColor);
@@ -24,7 +24,7 @@ public class BitmapUtils {
         int height = 190;
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        canvas.drawColor(Color.WHITE); //was canvas.drawColor(Color.TRANSPARENT);
+        canvas.drawColor(Color.argb(200, 255, 255, 255)); //was canvas.drawColor(Color.TRANSPARENT);
 
         // Calculate the x and y positions to center the text
         float x = (width - paint.measureText(text)) / 2;

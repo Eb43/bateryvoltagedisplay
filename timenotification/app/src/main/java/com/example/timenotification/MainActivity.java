@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
 
         voltageTextView = findViewById(R.id.voltageTextView);
         autostartCheckBox = findViewById(R.id.autostartCheckBox);
-        handler.postDelayed(updateVoltageTask, 500);
+        handler.postDelayed(updateVoltageTask, 15000);
 
         // Set initial state for the checkbox
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);

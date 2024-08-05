@@ -1,4 +1,4 @@
-# bateryvoltagedisplay
+# Batery Voltage Display in Android system status bar
 This app displays the current battery voltage of Android smartphone. The info is shown in app's main screen and in the persistent notification in the notification area. Theis Android app shows battery voltage in the Android system status bar
 <div>
   <img alt="android battery voltage display" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/battery-voltage-display-status-bar.jpg" style="width:300px;"/>

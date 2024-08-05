@@ -96,6 +96,25 @@ public class TimeNotificationService extends Service {
         Log.d(TAG, "createNotification: Creating notification with voltage: " + voltageText);
 
 
+
+        RemoteViews notificationLayout = new RemoteViews(getPackageName(), R.layout.notification);
+        notificationLayout.setTextViewText(R.id.notification_text, getCurrentBatteryVoltage() + " V");
+
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+        String shortVoltageText = voltageText.length() > 3 ? voltageText.substring(0, 3) : voltageText;
+        Bitmap voltageBitmap = BitmapUtils.textToBitmap(shortVoltageText);
+        Icon icon = Icon.createWithBitmap(voltageBitmap);
+
+        return new Notification.Builder(this, CHANNEL_ID)
+                .setCustomContentView(notificationLayout)
+                .setSmallIcon(icon)
+                .setContentIntent(pendingIntent)
+                .setPriority(Notification.PRIORITY_LOW)
+                .build();
+
+        /*
         RemoteViews notificationLayout = new RemoteViews(getPackageName(), R.layout.notification);
         notificationLayout.setTextViewText(R.id.notification_text, voltageText + " V");
 
@@ -107,6 +126,8 @@ public class TimeNotificationService extends Service {
         notificationBuilder.setCustomContentView(notificationLayout);
 
         return notificationBuilder.build();
+
+         */
     }
 
     private void updateNotification() {

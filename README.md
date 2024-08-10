@@ -9,7 +9,7 @@ This app displays the current battery voltage of Android smartphone. The info is
 <img alt="android battery voltage display" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/Notification%20with%20battery%20voltage.png" style="width:300px;"/>
 <img alt="android battery voltage display" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/request%20for%20displaying%20voltage%20in%20Android%20notification%20area.png" style="width:300px;"/>
 </div>
-
+<br>
 <div>
 <p>&#128190; &nbsp Download the Android Batery Voltage Display APK file:
 https://github.com/Eb43/bateryvoltagedisplay/blob/main/batteryvoltagedisplay.apk</p>

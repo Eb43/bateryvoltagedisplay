@@ -19,6 +19,8 @@ import android.widget.CompoundButton;
 import android.view.View;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 
 public class MainActivity extends Activity {
@@ -36,6 +38,11 @@ public class MainActivity extends Activity {
             Color.parseColor("#0000FF")   // Blue
     };
 
+    private RadioGroup textColorRadioGroup;
+    private RadioButton radioBlack;
+    private RadioButton radioWhite;
+    private static final String RADIO_CHOSEN_BLACK_KEY = "RadioChosenBlack";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +50,21 @@ public class MainActivity extends Activity {
 
         voltageTextView = findViewById(R.id.voltageTextView);
         autostartCheckBox = findViewById(R.id.autostartCheckBox);
+
+        textColorRadioGroup = findViewById(R.id.textColorRadioGroup);
+        radioBlack = findViewById(R.id.radioBlack);
+        radioWhite = findViewById(R.id.radioWhite);
+
+
         handler.postDelayed(updateVoltageTask, 15000);
 
         // Set initial state for the checkbox
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean isAutoStartEnabled = prefs.getBoolean(AUTO_START_KEY, false);
         autostartCheckBox.setChecked(isAutoStartEnabled);
+        boolean radioChosenBlack = prefs.getBoolean(RADIO_CHOSEN_BLACK_KEY, true);
+        radioBlack.setChecked(radioChosenBlack);
+        radioWhite.setChecked(!radioChosenBlack);
 
         // Set checkbox change listener
         autostartCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -56,6 +72,17 @@ public class MainActivity extends Activity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
                 editor.putBoolean(AUTO_START_KEY, isChecked);
+                editor.apply();
+            }
+        });
+
+        // Set radio group change listener
+        textColorRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                boolean radioChosenBlack = checkedId == R.id.radioBlack;
+                SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+                editor.putBoolean(RADIO_CHOSEN_BLACK_KEY, radioChosenBlack);
                 editor.apply();
             }
         });

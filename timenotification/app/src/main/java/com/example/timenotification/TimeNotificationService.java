@@ -17,6 +17,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.graphics.drawable.Icon;
 import android.widget.RemoteViews;
+import android.content.SharedPreferences;
 
 
 public class TimeNotificationService extends Service {
@@ -30,6 +31,12 @@ public class TimeNotificationService extends Service {
     private Notification.Builder notificationBuilder;
     private NotificationManager notificationManager;
 
+
+    private static final String PREFS_NAME = "MyPrefs";
+    private static final String RADIO_CHOSEN_BLACK_KEY = "RadioChosenBlack";
+    private int TEXT_COLOR;
+
+
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -41,6 +48,11 @@ public class TimeNotificationService extends Service {
         Log.d(TAG, "onCreate: Service created");
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         createNotificationChannel();
+
+        // Load the saved text color preference
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean radioChosenBlack = prefs.getBoolean(RADIO_CHOSEN_BLACK_KEY, true);
+        TEXT_COLOR = radioChosenBlack ? Color.BLACK : Color.WHITE;
 
         handler = new Handler(Looper.getMainLooper());
 
@@ -96,6 +108,11 @@ public class TimeNotificationService extends Service {
         Log.d(TAG, "createNotification: Creating notification with voltage: " + voltageText);
 
 
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean isRadioChosenBlack = prefs.getBoolean(RADIO_CHOSEN_BLACK_KEY, true); // Default to true if not set
+        int TEXT_COLOR = isRadioChosenBlack ? Color.BLACK : Color.WHITE;
+
+
 
         RemoteViews notificationLayout = new RemoteViews(getPackageName(), R.layout.notification);
         notificationLayout.setTextViewText(R.id.notification_text, getCurrentBatteryVoltage() + " V");
@@ -104,7 +121,7 @@ public class TimeNotificationService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         String shortVoltageText = voltageText.length() > 3 ? voltageText.substring(0, 3) : voltageText;
-        Bitmap voltageBitmap = BitmapUtils.textToBitmap(shortVoltageText);
+        Bitmap voltageBitmap = BitmapUtils.textToBitmap(shortVoltageText, TEXT_COLOR);
         Icon icon = Icon.createWithBitmap(voltageBitmap);
 
         return new Notification.Builder(this, CHANNEL_ID)

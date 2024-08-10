@@ -10,8 +10,8 @@ import android.os.Build;
 
 public class BitmapUtils {
 
-    public static Bitmap textToBitmap(String text) {
-        int textColor = Color.BLACK;
+    public static Bitmap textToBitmap(String text, int textColor) {
+        //int textColor = Color.BLACK;
         int textSize = 130;
         Paint paint = new Paint();
         paint.setTextSize(textSize);
@@ -30,13 +30,10 @@ public class BitmapUtils {
         Canvas canvas = new Canvas(bitmap);
         //canvas.drawColor(Color.argb(200, 255, 255, 255)); //was canvas.drawColor(Color.TRANSPARENT);
 
-        // Check Android version and set canvas color accordingly
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) { // Android 12 and above
-            canvas.drawColor(Color.TRANSPARENT);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && Build.VERSION.SDK_INT <= Build.VERSION_CODES.O_MR1) { // Android 8.0 and 8.1
-            canvas.drawColor(Color.argb(200, 200, 200, 200)); // Light gray for Android 8
+        if (textColor == Color.BLACK) {
+            canvas.drawColor(Color.WHITE);
         } else {
-            canvas.drawColor(Color.argb(255, 255, 255, 255)); // Fully opaque white for other versions
+            canvas.drawColor(Color.TRANSPARENT);
         }
 
         // Calculate the x and y positions to center the text

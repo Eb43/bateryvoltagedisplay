@@ -35,5 +35,5 @@ https://github.com/Eb43/bateryvoltagedisplay/blob/main/batteryvoltagedisplay.apk
 </div>
 <br>
 
-<p>💾 Загрузите APK-файл дисплея напряжения батареи Android: https://github.com/Eb43/bateryvoltagedisplay/blob/main/batteryvoltagedisplay.apk</p>
+<p>💾 Загрузите APK-файл Batery Voltage Display Android: https://github.com/Eb43/bateryvoltagedisplay/blob/main/batteryvoltagedisplay.apk</p>
 </div>

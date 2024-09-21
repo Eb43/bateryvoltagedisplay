@@ -12,7 +12,7 @@ public class BitmapUtils {
 
     public static Bitmap textToBitmap(String text, int textColor) {
         //int textColor = Color.BLACK;
-        int textSize = 130;
+        int textSize = 140;
         Paint paint = new Paint();
         paint.setTextSize(textSize);
         paint.setColor(textColor);

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.os.Build;
 
 public class BootReceiver extends BroadcastReceiver {
     private static final String TAG = "BootReceiver";
@@ -18,10 +19,15 @@ public class BootReceiver extends BroadcastReceiver {
             boolean isAutoStartEnabled = prefs.getBoolean(AUTO_START_KEY, false);
 
             if (isAutoStartEnabled) {
-                Log.d(TAG, "onReceive: Auto start enabled, starting MainActivity");
-                Intent mainActivityIntent = new Intent(context, MainActivity.class);
-                mainActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(mainActivityIntent);
+                Log.d(TAG, "onReceive: Auto start enabled, starting TimeNotificationService");
+                Intent serviceIntent = new Intent(context, TimeNotificationService.class);
+
+                // For devices running Android O (API level 26) or higher, use startForegroundService
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    context.startForegroundService(serviceIntent);
+                } else {
+                    context.startService(serviceIntent);
+                }
             } else {
                 Log.d(TAG, "onReceive: Auto start not enabled");
             }

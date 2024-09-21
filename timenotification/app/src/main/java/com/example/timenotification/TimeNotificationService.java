@@ -69,7 +69,7 @@ public class TimeNotificationService extends Service {
             @Override
             public void run() {
                 updateNotification();
-                handler.postDelayed(this, 1000); // Update every second
+                handler.postDelayed(this, 5000); // Update every X seconds
             }
         };
         handler.post(runnable);
@@ -113,9 +113,11 @@ public class TimeNotificationService extends Service {
         int TEXT_COLOR = isRadioChosenBlack ? Color.BLACK : Color.WHITE;
 
 
+        RemoteViews notificationExpandedLayout = new RemoteViews(getPackageName(), R.layout.notification_expanded);
+        notificationExpandedLayout.setTextViewText(R.id.notification_text_expanded, "Battery Voltage: " + voltageText + " V");
 
         RemoteViews notificationLayout = new RemoteViews(getPackageName(), R.layout.notification);
-        notificationLayout.setTextViewText(R.id.notification_text, getCurrentBatteryVoltage() + " V");
+        notificationLayout.setTextViewText(R.id.notification_text, getCurrentBatteryVoltage() + " V ");
 
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
@@ -129,6 +131,7 @@ public class TimeNotificationService extends Service {
                 .setSmallIcon(icon)
                 .setContentIntent(pendingIntent)
                 .setPriority(Notification.PRIORITY_LOW)
+                .setCustomBigContentView(notificationExpandedLayout)
                 .build();
 
         /*

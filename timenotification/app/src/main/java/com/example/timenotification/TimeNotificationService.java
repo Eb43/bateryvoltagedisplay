@@ -122,7 +122,7 @@ public class TimeNotificationService extends Service {
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        String shortVoltageText = voltageText.length() > 3 ? voltageText.substring(0, 3) : voltageText;
+        String shortVoltageText = voltageText.length() > 4 ? voltageText.substring(0, 4) : voltageText; //display as 3.71 not 3.715
         Bitmap voltageBitmap = BitmapUtils.textToBitmap(shortVoltageText, TEXT_COLOR);
         Icon icon = Icon.createWithBitmap(voltageBitmap);
 

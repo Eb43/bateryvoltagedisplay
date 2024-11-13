@@ -121,7 +121,7 @@
         android:autoSizeMinTextSize="8sp"
         android:autoSizeTextType="uniform"
         android:layoutDirection="inherit"
-        android:text="&#128683; \n Kill app \n &amp; \n Exit"
+        android:text="&#128683; &#9760; \n Kill app \n &amp; \n Exit"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.532"

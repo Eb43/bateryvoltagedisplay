@@ -125,7 +125,7 @@ public class MainActivity extends Activity {
             IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
             Intent batteryStatus = registerReceiver(null, ifilter);
             int voltage = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1) : -1;
-            voltageTextView.setText("" + voltage + " mV");
+            voltageTextView.setText("" + voltage/1000.0 + " V");
             voltageTextView.setTextColor(colors[colorIndex]);
             colorIndex = (colorIndex + 1) % colors.length;
             handler.postDelayed(this, 500);

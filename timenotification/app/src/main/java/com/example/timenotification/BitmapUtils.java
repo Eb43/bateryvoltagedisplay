@@ -13,22 +13,28 @@ public class BitmapUtils {
     public static Bitmap textToBitmap(String text, int textColor) {
         //int textColor = Color.BLACK;
         int textSize = 120;
-        Paint paint = new Paint();
-        paint.setTextSize(textSize);
-        paint.setColor(textColor);
+        Paint numberPaint = new Paint();
+        numberPaint.setTextSize(textSize);
+        numberPaint.setColor(textColor);
         // Use setARGB to explicitly define the color
-        //paint.setARGB(255, 0, 0, 0); // Equivalent to Color.BLACK
-        paint.setAntiAlias(true);
-        paint.setTextAlign(Paint.Align.LEFT); // Align text center
-        //paint.setTypeface(Typeface.DEFAULT_BOLD);
+        //numberPaint.setARGB(255, 0, 0, 0); // Equivalent to Color.BLACK
+        numberPaint.setAntiAlias(true);
+        numberPaint.setTextAlign(Paint.Align.LEFT); // Align text center
+        //numberPaint.setTypeface(Typeface.DEFAULT_BOLD);
         // Use a more compact font: MONOSPACE is generally more compact for numbers
-        //paint.setTypeface(Typeface.MONOSPACE);
+        //numberPaint.setTypeface(Typeface.MONOSPACE);
         // Set the typeface to bold monospace
-        paint.setTypeface(Typeface.create(Typeface.MONOSPACE, Typeface.BOLD));
-        paint.setLetterSpacing(-0.2f); // Adjust letter spacing for tighter character fit
+        numberPaint.setTypeface(Typeface.create(Typeface.MONOSPACE, Typeface.BOLD));
+        //numberPaint.setLetterSpacing(-0.01f); // Adjust letter spacing for tighter character fit
         //paint.setSubpixelText(true);
 
+        Paint dotPaint = new Paint(numberPaint); // Copy number paint properties
+        dotPaint.setTextSize(textSize * 0.6f); // Make dot smaller (e.g., 60% of text size)
 
+        // Split the text into parts: before, dot, after
+        String[] parts = text.split("\\.");
+        String integerPart = parts[0];
+        String fractionalPart = parts.length > 1 ? parts[1] : "";
 
         // Create a 190x190 pixel bitmap
         int width = 190;
@@ -45,15 +51,29 @@ public class BitmapUtils {
 
         // Stretch the canvas vertically
         canvas.save(); // Save the current canvas state
-        canvas.scale(1.0f, 1.4f, width / 2f, height / 2f); // Stretch height by 40%
+        canvas.scale(0.6f, 1.8f, width / 2f, height / 2f); // Stretch height by 80%
 
-        // Calculate the x and y positions to center the text
-        float x = (width - paint.measureText(text)) / 2;
-        Paint.FontMetrics metrics = paint.getFontMetrics();
+        // Calculate the initial x position for centering
+        float numberWidth = numberPaint.measureText(integerPart + fractionalPart);
+        float dotWidth = dotPaint.measureText(".");
+        float x = (width - (numberWidth + dotWidth)) / 2;
+
+        // Calculate y position
+        Paint.FontMetrics metrics = numberPaint.getFontMetrics();
         float y = (height - metrics.ascent - metrics.descent) / 2;
 
-        // Draw the text with the vertically scaled canvas
-        canvas.drawText(text, x, y, paint);
+        // Draw the integer part
+        canvas.drawText(integerPart, x, y, numberPaint);
+        x += numberPaint.measureText(integerPart); // Update x for dot position
+
+        // Draw the dot with smaller size
+        canvas.drawText(".", x, y, dotPaint);
+        x = x + dotWidth; // Move x slightly for reduced space after dot
+
+        // Draw the fractional part
+        canvas.drawText(fractionalPart, x, y, numberPaint);
+
+
         canvas.restore(); // Restore the original canvas scale
 
         return bitmap;

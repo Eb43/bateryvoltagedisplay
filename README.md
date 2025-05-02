@@ -4,7 +4,6 @@
 <meta name="google-site-verification" content="ZMMJwrDsWck5SE7_g2xYlXYzvIckbhivpGWGFhNOpZ8" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>android battery voltage display in status bar</title>
     <style>
                 body {
             font-family: Arial, sans-serif;
@@ -38,8 +37,7 @@
     </style>
 </head>
 <body>
-<p style="font-size: 70%;">Published: 5 August 2024</p>
-<p><a href="https://eb43.github.io/">←🏠 Back to <i><b>eb43.github.io</b></i> articles list</a></p>
+
 
   <header>
 <h1>Android battery voltage indicator in status bar</h1>

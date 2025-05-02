@@ -1,45 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta name="google-site-verification" content="ZMMJwrDsWck5SE7_g2xYlXYzvIckbhivpGWGFhNOpZ8" />
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-                body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            width: 70%; 
-            max-width: 1200px; 
-            margin-left: auto; 
-            margin-right: auto; 
-        }
-    img {
-    display: block; 
-    width: 100%;
-    height: auto;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto; 
-    margin-top: 20px; 
-    margin-bottom: 20px;  
-}
 
-        h1 {
-            margin: 20px 0;
-            padding-bottom: 40px;
-        }
-    </style>
-</head>
-<body>
-
-
-  <header>
 <h1>Android battery voltage indicator in status bar</h1>
 
 

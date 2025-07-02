@@ -57,15 +57,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="152dp"
+        android:layout_marginTop="20dp"
         android:text=" -1mV "
         android:textAlignment="center"
         android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/batvoltageTextView"
-        app:layout_constraintVertical_bias="0.164" />
+        app:layout_constraintTop_toBottomOf="@+id/batvoltageTextView" />
+
+    <TextView
+        android:id="@+id/minMaxVoltageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Min (0%): Not recorded | Max (100%): Not recorded"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textColor="#808080"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/voltageTextView" />
 
     <RadioGroup
         android:id="@+id/textColorRadioGroup"
@@ -78,7 +89,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.328"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/voltageTextView">
+        app:layout_constraintTop_toBottomOf="@+id/minMaxVoltageTextView">
 
         <TextView
             android:id="@+id/editTextText"
@@ -110,7 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="272dp"
         android:layout_marginBottom="13sp"
         android:autoSizeMaxTextSize="15sp"
@@ -129,7 +140,7 @@
         android:id="@+id/exitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="150dp"
         android:layout_marginBottom="13sp"
         android:autoSizeMaxTextSize="27sp"
         android:autoSizeMinTextSize="8sp"
@@ -141,7 +152,7 @@
         app:layout_constraintHorizontal_bias="0.532"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/voltageTextView"
+        app:layout_constraintTop_toBottomOf="@+id/minMaxVoltageTextView"
         app:layout_constraintVertical_bias="0.845" />
 
 

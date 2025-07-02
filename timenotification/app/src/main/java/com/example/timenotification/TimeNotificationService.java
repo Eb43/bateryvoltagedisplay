@@ -35,6 +35,8 @@ public class TimeNotificationService extends Service {
     private static final String PREFS_NAME = "MyPrefs";
     private static final String RADIO_CHOSEN_BLACK_KEY = "RadioChosenBlack";
     private int TEXT_COLOR;
+    private static final String MIN_VOLTAGE_KEY = "MinVoltage";
+    private static final String MAX_VOLTAGE_KEY = "MaxVoltage";
 
 
     @Override
@@ -107,22 +109,40 @@ public class TimeNotificationService extends Service {
     private Notification createNotification(String voltageText) {
         Log.d(TAG, "createNotification: Creating notification with voltage: " + voltageText);
 
-
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        boolean isRadioChosenBlack = prefs.getBoolean(RADIO_CHOSEN_BLACK_KEY, true); // Default to true if not set
+        boolean isRadioChosenBlack = prefs.getBoolean(RADIO_CHOSEN_BLACK_KEY, true);
         int TEXT_COLOR = isRadioChosenBlack ? Color.BLACK : Color.WHITE;
 
+        // Get min and max voltages from shared preferences
+        int minVoltage = prefs.getInt(MIN_VOLTAGE_KEY, -1);
+        int maxVoltage = prefs.getInt(MAX_VOLTAGE_KEY, -1);
+
+        String minText = "---";
+        String maxText = "---";
+
+        if (minVoltage != -1) {
+            minText = String.valueOf(minVoltage / 1000.0) + " V";
+        }
+
+        if (maxVoltage != -1) {
+            maxText = String.valueOf(maxVoltage / 1000.0) + " V";
+        }
+
+        // Build the expanded notification text with min/max values
+        String expandedText = "\uD83D\uDD0B Battery Voltage: " + voltageText + " V\n" +
+                "Min (0%): " + minText + "\n" +
+                "Max (100%): " + maxText;
 
         RemoteViews notificationExpandedLayout = new RemoteViews(getPackageName(), R.layout.notification_expanded);
-        notificationExpandedLayout.setTextViewText(R.id.notification_text_expanded, "Battery Voltage: " + voltageText + " V");
+        notificationExpandedLayout.setTextViewText(R.id.notification_text_expanded, expandedText);
 
         RemoteViews notificationLayout = new RemoteViews(getPackageName(), R.layout.notification);
-        notificationLayout.setTextViewText(R.id.notification_text, getCurrentBatteryVoltage() + " V ");
+        notificationLayout.setTextViewText(R.id.notification_text, "\uD83D\uDD0B Battery Voltage: "+ voltageText + " V ");
 
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        String shortVoltageText = voltageText.length() > 4 ? voltageText.substring(0, 4) : voltageText; //display as 3.71 not 3.715
+        String shortVoltageText = voltageText.length() > 4 ? voltageText.substring(0, 4) : voltageText;
         Bitmap voltageBitmap = BitmapUtils.textToBitmap(shortVoltageText, TEXT_COLOR);
         Icon icon = Icon.createWithBitmap(voltageBitmap);
 
@@ -133,6 +153,7 @@ public class TimeNotificationService extends Service {
                 .setPriority(Notification.PRIORITY_LOW)
                 .setCustomBigContentView(notificationExpandedLayout)
                 .build();
+
 
         /*
         RemoteViews notificationLayout = new RemoteViews(getPackageName(), R.layout.notification);

@@ -129,9 +129,14 @@ public class TimeNotificationService extends Service {
         }
 
         // Build the expanded notification text with min/max values
-        String expandedText = "\uD83D\uDD0B Battery Voltage: " + voltageText + " V\n" +
-                "Min (0%): " + minText + "\n" +
-                "Max (100%): " + maxText;
+        String expandedText = null;
+
+        if (minText.equals("---") || maxText.equals("---")) {
+            expandedText = "\uD83D\uDD0B Battery Voltage: " + voltageText + " V";
+        } else {
+            expandedText = "\uD83D\uDD0B Battery Voltage: " + voltageText + " V\n" +
+                    "Min (0%): " + minText + " | Max (100%): " + maxText;
+        }
 
         RemoteViews notificationExpandedLayout = new RemoteViews(getPackageName(), R.layout.notification_expanded);
         notificationExpandedLayout.setTextViewText(R.id.notification_text_expanded, expandedText);

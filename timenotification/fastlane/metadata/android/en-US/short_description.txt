@@ -1,0 +1,14 @@
+Battery Voltage Display is a lightweight Android app that shows real-time battery voltage in the system status bar and notification area.
+
+It uses shows accurate voltage readings in persistent icon visible over other apps, helping users monitor battery health and performance.
+
+  This app is:
+
+    - Ad-free
+    - Efficient and low-resource
+    - Allows you to activate autorun
+    - Compatible with Android 8 and above
+
+  Ideal for users who want a simple, unobtrusive way to keep an eye on battery voltage without unnecessary permissions or background services.
+
+Developed by Eugen Barilyuk EB43 (https://eb43.github.io)

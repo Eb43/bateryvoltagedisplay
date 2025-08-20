@@ -1,1 +1,0 @@
-BatteryVoltageDisplay shows battery voltage in the system status bar

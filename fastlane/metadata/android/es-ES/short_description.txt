@@ -1,0 +1,1 @@
+Muestra el voltaje de la batería en la barra de estado de Android y en la notificaciónz

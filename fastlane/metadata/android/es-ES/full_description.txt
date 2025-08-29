@@ -1,0 +1,41 @@
+BatteryVoltageDisplay muestra el voltaje real de la batería de un teléfono Android en tiempo real. La información siempre es visible en el ícono de la barra de estado y en la notificación, incluso cuando se utilizan otras aplicaciones.
+
+Aplicaciones prácticas del monitoreo del voltaje de la batería:
+
+    🔋 Comprobación del estado real de la batería
+       Detecte signos de degradación de la batería. Observe caídas de voltaje repentinas o irregulares: son señales tempranas de que la batería está fatigada.
+
+    🔌 Detección de cargadores o cables defectuosos
+       Durante la carga, el voltaje debe aumentar de manera continua (por ejemplo, 3,7 V → 4,2 V). Si permanece constante o fluctúa de manera irregular, probablemente el cable o el adaptador estén defectuosos.
+
+    💀 Evitar apagados inesperados
+       El monitoreo del voltaje permite ver el momento exacto en que el teléfono se apaga por baja carga. Esto ayuda a evitar sorpresas, como que el dispositivo se apague con un 30% de batería.
+
+    📈 Ahorro en reemplazos innecesarios de batería
+       Siga el voltaje de la batería para conocer su estado real y reemplácela solo cuando sea realmente necesario.
+
+    ⚠️ Extender la vida útil de la batería
+       La batería sufre un gran estrés al cargarse hasta el voltaje máximo. El voltaje máximo se alcanza antes de que el indicador de carga muestre 100%. Monitoreando el voltaje, puede desconectar el teléfono en el momento óptimo para prolongar la vida útil de la batería.
+
+    🔎 Evaluación de la capacidad de una batería reemplazada
+       Conozca rápidamente la calidad de la batería reemplazada. Una buena batería mantiene un voltaje estable bajo carga, mientras que una de baja calidad pierde voltaje rápidamente durante el uso y aumenta de manera abrupta al cargarla.
+
+Battery Voltage Display es una herramienta para quienes desean ver siempre información actualizada en tiempo real sobre el estado de la batería de su smartphone Android.
+
+Funciones principales:
+
+  - Interfaz conveniente: Fácil de usar, proporciona acceso rápido a datos importantes de la batería.
+
+  - Soporte de autoinicio: Permite monitoreo continuo sin necesidad de abrir la aplicación manualmente tras reiniciar el dispositivo.
+
+  - Eficiencia: Opera con mínima carga sobre la memoria RAM, sin afectar el rendimiento del sistema.
+
+  - Sin procesos ocultos: A diferencia de muchas aplicaciones en segundo plano, no ejecuta servicios ocultos, evitando gasto innecesario de energía.
+
+  - Función de cierre manual: Permite cerrar completamente la aplicación con un solo toque, garantizando control total sobre los recursos del dispositivo.
+
+  - Sin publicidad: La aplicación es completamente gratuita y no contiene anuncios invasivos.
+
+  - Amplia compatibilidad: Funciona en dispositivos con Android 8 y versiones superiores.
+
+Desarrollado por Eugen Barilyuk EB43 https://eb43.github.io

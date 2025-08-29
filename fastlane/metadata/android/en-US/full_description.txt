@@ -1,17 +1,27 @@
-BatteryVoltageDisplay app shows in real-time battery voltage of Android smartphone. The info is visible over other apps in the persistent icon at the top of the screen and in a notification.
+BatteryVoltageDisplay shows Android phone’s real-time battery voltage. The information is always visible in an icon in the status bar and in a notification, even while you use other apps.
+
+Practical uses of monitoring battery voltage:
+
+    🔋 Check battery real health
+       Spot signs of battery degradation. Watch for sudden or irregular voltage drops—these are early signs that the battery is degrading.
+
+    🔌 Catch bad chargers or cables
+       During charging, voltage should rise smoothly (e.g., 3.7 V → 4.2 V). If it stays flat or jumps irregularly, the cable or adapter is likely defective.
+
+    💀 Avoid unexpected shutdowns
+       Monitoring voltage lets you see the exact point where the phone shuts down from low battery. Helping you avoid surprises like the device shutting down at 30% charge.
+
+    📈 Save money on unnecessary battery replacement
+       Monitor battery’s voltage to know its true health and decide a battery replacement only when it is actually needed.
+
+    ⚠️ Prolong battery lifespan
+       Batteries experience high stress when charged to their maximum voltage, which often happens before the charge indicator shows 100%. By monitoring voltage, you can unplug your phone at the optimal point to reduce stress and extend battery life.
+
+    🔎 Evaluate aftermarket replacement battery capacity
+       Quickly know a replacement battery’s quaity. A good battery holds stable voltage under load, while a poor-quality battery drops quickly under use and spikes sharply when charging.
 
 
-Real-life applications of monitoring battery voltage:
-
-    - Battery Health Diagnosis: Detect potential battery degradation by observing voltage inconsistencies.
-    - Energy Consumption Insights: Users can identify how specific apps impact battery voltage and optimize their usage accordingly.
-    - Optimized Charging Habits: Helps gauge charging effectiveness, ensuring the battery charges at an optimal rate without excessive overheating.
-    - Device Performance Monitoring: Ensures that voltage levels remain stable during resource-intensive tasks.
-    - Prolonged Battery Life: Users can make informed decisions about battery replacement or conservation strategies.
-
-You can efficiently monitor you battery health and optimize device usage.
-
-The Battery Voltage Display app is a tool for anyone who wants detailed insights into their Android smartphone’s battery performance. 
+The Battery Voltage Display app is a tool for anyone who wants detailed insights into their Android smartphone’s battery health. 
 
 
 Key Features:

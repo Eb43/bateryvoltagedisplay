@@ -1,0 +1,4 @@
+V1.1 changes:
+
+• Modern Android requires user to enable auto start for an app in System settings. Added a popup window with a reminder to do this action after user checks Auto Start in the app
+• Duplicating code existed. Refactored to remove code duplication

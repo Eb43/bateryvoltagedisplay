@@ -21,7 +21,7 @@ import android.content.SharedPreferences;
 
 
 public class TimeNotificationService extends Service {
-
+    private BatteryVoltageManager batteryVoltageManager;
     private static final String CHANNEL_ID = "TimeNotificationChannel";
     private static final int NOTIFICATION_ID = 1;
     private static final String TAG = "TimeNotificationService";
@@ -35,8 +35,7 @@ public class TimeNotificationService extends Service {
     private static final String PREFS_NAME = "MyPrefs";
     private static final String RADIO_CHOSEN_BLACK_KEY = "RadioChosenBlack";
     private int TEXT_COLOR;
-    private static final String MIN_VOLTAGE_KEY = "MinVoltage";
-    private static final String MAX_VOLTAGE_KEY = "MaxVoltage";
+
 
 
     @Override
@@ -50,6 +49,8 @@ public class TimeNotificationService extends Service {
         Log.d(TAG, "onCreate: Service created");
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         createNotificationChannel();
+
+        batteryVoltageManager = new BatteryVoltageManager(this);
 
         // Load the saved text color preference
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
@@ -114,8 +115,8 @@ public class TimeNotificationService extends Service {
         int TEXT_COLOR = isRadioChosenBlack ? Color.BLACK : Color.WHITE;
 
         // Get min and max voltages from shared preferences
-        int minVoltage = prefs.getInt(MIN_VOLTAGE_KEY, -1);
-        int maxVoltage = prefs.getInt(MAX_VOLTAGE_KEY, -1);
+        int minVoltage = batteryVoltageManager.getMinVoltage();
+        int maxVoltage = batteryVoltageManager.getMaxVoltage();
 
         String minText = "---";
         String maxText = "---";
@@ -183,9 +184,8 @@ public class TimeNotificationService extends Service {
     }
 
     private String getCurrentBatteryVoltage() {
-        Intent batteryStatus = registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-        int voltage = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1) : -1;
-        Log.d(TAG, "getCurrentBatteryVoltage: Current battery voltage is " + voltage);
-        return voltage != -1 ? String.valueOf(voltage / 1000.0) : "Unknown";
+        String voltageText = batteryVoltageManager.getCurrentBatteryVoltageAsString();
+        Log.d(TAG, "getCurrentBatteryVoltage: Current battery voltage is " + voltageText);
+        return voltageText;
     }
 }

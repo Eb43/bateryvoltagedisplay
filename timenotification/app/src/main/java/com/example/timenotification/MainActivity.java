@@ -21,9 +21,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.net.Uri;
+import android.content.ComponentName;
 
 
 public class MainActivity extends Activity {
+    private BatteryVoltageManager batteryVoltageManager;
     private static final String TAG = "MainActivity";
     private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 1;
     private TextView voltageTextView;
@@ -33,8 +38,6 @@ public class MainActivity extends Activity {
     private CheckBox autostartCheckBox;
     private static final String PREFS_NAME = "MyPrefs";
     private static final String AUTO_START_KEY = "AutoStart";
-    private static final String MIN_VOLTAGE_KEY = "MinVoltage";
-    private static final String MAX_VOLTAGE_KEY = "MaxVoltage";
     private int[] colors = new int[]{
             Color.parseColor("#A52A2A"),  // Brown
             Color.parseColor("#808080"),  // Grey
@@ -46,15 +49,13 @@ public class MainActivity extends Activity {
     private RadioButton radioWhite;
     private static final String RADIO_CHOSEN_BLACK_KEY = "RadioChosenBlack";
 
-    // Variables for tracking max voltage
-    private int highestVoltageValue = 0;
-    private int stableVoltageCounter = 0;
-    private boolean maxVoltageRecorded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        batteryVoltageManager = new BatteryVoltageManager(this);
 
         voltageTextView = findViewById(R.id.voltageTextView);
         minMaxVoltageTextView = findViewById(R.id.minMaxVoltageTextView);
@@ -84,6 +85,10 @@ public class MainActivity extends Activity {
                 SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
                 editor.putBoolean(AUTO_START_KEY, isChecked);
                 editor.apply();
+
+                if (isChecked) {
+                    showAutostartDialog();
+                }
             }
         });
 
@@ -118,6 +123,58 @@ public class MainActivity extends Activity {
         }
     }
 
+    private void showAutostartDialog() {
+        final AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Autostart Permission Needed")
+                .setMessage("Enable autostart permission to ensure notifications work reliably after reboot.")
+                .setPositiveButton("OPEN SETTINGS", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent();
+                        String packageName = getPackageName();
+                        if (Build.MANUFACTURER.equalsIgnoreCase("xiaomi")) {
+                            intent.setComponent(new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity"));
+                        } else if (Build.MANUFACTURER.equalsIgnoreCase("oppo")) {
+                            intent.setComponent(new ComponentName("com.coloros.safecenter", "com.coloros.safecenter.permission.startup.StartupAppListActivity"));
+                        } else if (Build.MANUFACTURER.equalsIgnoreCase("vivo")) {
+                            intent.setComponent(new ComponentName("com.vivo.permissionmanager", "com.vivo.permissionmanager.activity.BgStartUpManagerActivity"));
+                        } else if (Build.MANUFACTURER.equalsIgnoreCase("huawei")) {
+                            intent.setComponent(new ComponentName("com.huawei.systemmanager", "com.huawei.systemmanager.optimize.process.ProtectActivity"));
+                        } else if (Build.MANUFACTURER.equalsIgnoreCase("samsung")) {
+                            intent.setComponent(new ComponentName("com.samsung.android.lool", "com.samsung.android.sm.ui.battery.BatteryActivity"));
+                        } else if (Build.MANUFACTURER.equalsIgnoreCase("oneplus")) {
+                            intent.setComponent(new ComponentName("com.oneplus.security", "com.oneplus.security.chainlaunch.view.ChainLaunchAppListActivity"));
+                        } else {
+                            intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            intent.setData(Uri.parse("package:" + packageName));
+                        }
+                        try {
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            intent.setData(Uri.parse("package:" + packageName));
+                            startActivity(intent);
+                        }
+                    }
+                })
+                .setNegativeButton("OK", null)
+                .setCancelable(true)
+                .create();
+
+        dialog.show();
+
+        // Auto-dismiss after 30 seconds
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+            }
+        }, 30000); // 30 seconds
+    }
+
+
     private void startNotificationService() {
         Log.d(TAG, "onCreate: Starting TimeNotificationService");
         Intent intent = new Intent(this, TimeNotificationService.class);
@@ -131,9 +188,8 @@ public class MainActivity extends Activity {
     }
 
     private void updateMinMaxVoltageDisplay() {
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        int minVoltage = prefs.getInt(MIN_VOLTAGE_KEY, -1);
-        int maxVoltage = prefs.getInt(MAX_VOLTAGE_KEY, -1);
+        int minVoltage = batteryVoltageManager.getMinVoltage();
+        int maxVoltage = batteryVoltageManager.getMaxVoltage();
 
         String minText = "Not recorded";
         String maxText = "Not recorded";
@@ -149,71 +205,18 @@ public class MainActivity extends Activity {
         minMaxVoltageTextView.setText("Min (0%): " + minText + " | Max (100%): " + maxText);
     }
 
-    private void checkAndRecordMinVoltage(int batteryPercent, int voltage) {
-        if (batteryPercent <= 1) {  // Battery is at 1% or less
-            SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-            int currentMinVoltage = prefs.getInt(MIN_VOLTAGE_KEY, -1);
-
-            // Only record if we don't have a min voltage yet, or if this voltage is lower
-            if (currentMinVoltage == -1 || voltage < currentMinVoltage) {
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putInt(MIN_VOLTAGE_KEY, voltage);
-                editor.apply();
-                updateMinMaxVoltageDisplay();
-                Log.d(TAG, "Recorded new min voltage: " + voltage);
-            }
-        }
-    }
-
-    private void checkAndRecordMaxVoltage(int batteryPercent, int voltage) {
-        if (batteryPercent >= 100) {  // Battery is at 100%
-
-            if (voltage > highestVoltageValue) {
-                // New higher voltage found
-                highestVoltageValue = voltage;
-                stableVoltageCounter = 0;  // Reset counter
-                maxVoltageRecorded = false;
-                Log.d(TAG, "New highest voltage: " + voltage);
-            } else if (voltage == highestVoltageValue) {
-                // Voltage is stable at the highest value
-                stableVoltageCounter = stableVoltageCounter + 1;
-
-                // Check every 500ms, so 120 counts = 60 seconds
-                if (stableVoltageCounter >= 120 && maxVoltageRecorded == false) {
-                    SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putInt(MAX_VOLTAGE_KEY, highestVoltageValue);
-                    editor.apply();
-                    maxVoltageRecorded = true;
-                    updateMinMaxVoltageDisplay();
-                    Log.d(TAG, "Recorded max voltage after 60 seconds stable: " + highestVoltageValue);
-                }
-            }
-        } else {
-            // Battery is not at 100%, reset tracking
-            highestVoltageValue = 0;
-            stableVoltageCounter = 0;
-            maxVoltageRecorded = false;
-        }
-    }
 
     private Runnable updateVoltageTask = new Runnable() {
         @Override
         public void run() {
-            IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-            Intent batteryStatus = registerReceiver(null, ifilter);
-            int voltage = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1) : -1;
-            int batteryPercent = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) : -1;
+            int voltage = batteryVoltageManager.getCurrentBatteryVoltage();
 
             voltageTextView.setText("" + voltage/1000.0 + " V");
             voltageTextView.setTextColor(colors[colorIndex]);
             colorIndex = (colorIndex + 1) % colors.length;
 
-            // Check and record min/max voltages
-            if (voltage != -1 && batteryPercent != -1) {
-                checkAndRecordMinVoltage(batteryPercent, voltage);
-                checkAndRecordMaxVoltage(batteryPercent, voltage);
-            }
+            batteryVoltageManager.checkAndRecordVoltages();
+            updateMinMaxVoltageDisplay();
 
             handler.postDelayed(this, 500);
         }

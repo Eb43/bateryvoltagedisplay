@@ -55,7 +55,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        batteryVoltageManager = new BatteryVoltageManager(this);
+        batteryVoltageManager = new BatteryVoltageManager(this, 500);
 
         voltageTextView = findViewById(R.id.voltageTextView);
         minMaxVoltageTextView = findViewById(R.id.minMaxVoltageTextView);

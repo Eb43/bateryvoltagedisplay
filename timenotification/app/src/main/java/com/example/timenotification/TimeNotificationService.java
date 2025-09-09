@@ -50,7 +50,7 @@ public class TimeNotificationService extends Service {
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         createNotificationChannel();
 
-        batteryVoltageManager = new BatteryVoltageManager(this);
+        batteryVoltageManager = new BatteryVoltageManager(this, 5000);
 
         // Load the saved text color preference
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
@@ -179,6 +179,7 @@ public class TimeNotificationService extends Service {
 
     private void updateNotification() {
         String voltageText = getCurrentBatteryVoltage();  // + " V"
+        batteryVoltageManager.checkAndRecordVoltages();
         Log.d(TAG, "updateNotification: Updating notification with voltage: " + voltageText);
         notificationManager.notify(NOTIFICATION_ID, createNotification(voltageText));
     }

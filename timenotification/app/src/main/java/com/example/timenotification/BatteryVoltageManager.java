@@ -17,9 +17,14 @@ public class BatteryVoltageManager {
     private int highestVoltageValue = 0;
     private int stableVoltageCounter = 0;
     private boolean maxVoltageRecorded = false;
+    private int updateIntervalMs;
+    private int requiredStableCounts;
 
-    public BatteryVoltageManager(Context context) {
+    public BatteryVoltageManager(Context context, int updateIntervalMs) {
         this.context = context;
+        this.updateIntervalMs = updateIntervalMs;
+        // Calculate required counts for 60 seconds stability
+        this.requiredStableCounts = 60000 / updateIntervalMs;
     }
 
     public int getCurrentBatteryVoltage() {
@@ -71,7 +76,7 @@ public class BatteryVoltageManager {
             } else if (voltage == highestVoltageValue) {
                 stableVoltageCounter++;
 
-                if (stableVoltageCounter >= 120 && !maxVoltageRecorded) {
+                if (stableVoltageCounter >= requiredStableCounts && !maxVoltageRecorded) {
                     SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putInt(MAX_VOLTAGE_KEY, highestVoltageValue);

@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">BatteryVoltageDisplay</string>
+
+    <!-- Main Activity -->
+    <string name="battery_temperature_label">Battery Voltage:</string>
+    <string name="enable_auto_start">Enable\nAuto\nStart</string>
+    <string name="kill_app_exit">🚫 ☠ ❌ \n Kill app \n &amp; \n Exit</string>
+    <string name="notification_icon_text_color">Notification icon\ntext color:</string>
+    <string name="textColorRadioGroup">Black</string>
+    <string name="black">Black</string>
+    <string name="white">White</string>
 </resources>

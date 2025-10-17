@@ -9,6 +9,6 @@
         android:layout_height="wrap_content"
         android:text="Battery Voltage: "
         android:textSize="18sp"
-        android:textColor="@android:color/black" />
+        android:textColor="?android:attr/textColorPrimary" />
 
 </RelativeLayout>

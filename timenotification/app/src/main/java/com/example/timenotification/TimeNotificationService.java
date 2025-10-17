@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
@@ -18,7 +19,8 @@ import android.util.Log;
 import android.graphics.drawable.Icon;
 import android.widget.RemoteViews;
 import android.content.SharedPreferences;
-
+import androidx.core.app.NotificationCompat;
+import android.app.UiModeManager;
 
 public class TimeNotificationService extends Service {
     private BatteryVoltageManager batteryVoltageManager;
@@ -57,7 +59,7 @@ public class TimeNotificationService extends Service {
         boolean radioChosenBlack = prefs.getBoolean(RADIO_CHOSEN_BLACK_KEY, true);
         TEXT_COLOR = radioChosenBlack ? Color.BLACK : Color.WHITE;
 
-        handler = new Handler(Looper.getMainLooper());
+        //handler = new Handler(Looper.getMainLooper());
 
         notificationBuilder = new Notification.Builder(this, CHANNEL_ID)
                 .setContentTitle("Battery Voltage")
@@ -68,6 +70,11 @@ public class TimeNotificationService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         notificationBuilder.setContentIntent(pendingIntent);
 
+        // Register receiver for battery voltage updates
+        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        registerReceiver(batteryReceiver, filter);
+
+        /*
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -76,7 +83,21 @@ public class TimeNotificationService extends Service {
             }
         };
         handler.post(runnable);
+        */
     }
+
+    private final android.content.BroadcastReceiver batteryReceiver = new android.content.BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
+            if (voltage != -1) {
+                batteryVoltageManager.checkAndRecordVoltages();
+                String voltageText = String.valueOf(voltage / 1000.0);
+                Log.d(TAG, "BatteryReceiver: Voltage changed -> " + voltageText);
+                notificationManager.notify(NOTIFICATION_ID, createNotification(voltageText));
+            }
+        }
+    };
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -89,7 +110,12 @@ public class TimeNotificationService extends Service {
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy: Service destroyed");
-        handler.removeCallbacks(runnable);
+        //handler.removeCallbacks(runnable);
+        try {
+            unregisterReceiver(batteryReceiver);
+        } catch (IllegalArgumentException e) {
+            Log.w(TAG, "Receiver already unregistered");
+        }
         notificationManager.cancel(NOTIFICATION_ID);
     }
 
@@ -139,11 +165,21 @@ public class TimeNotificationService extends Service {
                     "Min (0%): " + minText + " | Max (100%): " + maxText;
         }
 
+
+
+
+        UiModeManager uiModeManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
+        boolean isDarkMode = (uiModeManager.getNightMode() == UiModeManager.MODE_NIGHT_YES
+                || uiModeManager.getNightMode() == UiModeManager.MODE_NIGHT_AUTO);
+
+
         RemoteViews notificationExpandedLayout = new RemoteViews(getPackageName(), R.layout.notification_expanded);
         notificationExpandedLayout.setTextViewText(R.id.notification_text_expanded, expandedText);
+        if (isDarkMode) notificationExpandedLayout.setTextColor(R.id.notification_text_expanded, Color.WHITE);
 
         RemoteViews notificationLayout = new RemoteViews(getPackageName(), R.layout.notification);
         notificationLayout.setTextViewText(R.id.notification_text, "\uD83D\uDD0B Battery Voltage: "+ voltageText + " V ");
+        if (isDarkMode) notificationLayout.setTextColor(R.id.notification_text, Color.WHITE);
 
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);

@@ -2,6 +2,7 @@ package com.example.timenotification;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.UiModeManager;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -25,6 +26,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.content.ComponentName;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 
 
 public class MainActivity extends Activity {
@@ -48,6 +51,7 @@ public class MainActivity extends Activity {
     private RadioButton radioBlack;
     private RadioButton radioWhite;
     private static final String RADIO_CHOSEN_BLACK_KEY = "RadioChosenBlack";
+    private RollingChartView voltageChart;
 
 
     @Override
@@ -55,7 +59,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        batteryVoltageManager = new BatteryVoltageManager(this, 500);
+        batteryVoltageManager = new BatteryVoltageManager(this, 1000);
 
         voltageTextView = findViewById(R.id.voltageTextView);
         minMaxVoltageTextView = findViewById(R.id.minMaxVoltageTextView);
@@ -65,7 +69,62 @@ public class MainActivity extends Activity {
         radioBlack = findViewById(R.id.radioBlack);
         radioWhite = findViewById(R.id.radioWhite);
 
-        handler.postDelayed(updateVoltageTask, 15000);
+        voltageChart = findViewById(R.id.voltageChart);
+        Button zoomOutButton = findViewById(R.id.zoomOutButton);
+        Button zoomInButton = findViewById(R.id.zoomInButton);
+        TextView timeSpanLabel = findViewById(R.id.timeSpanLabel);
+        UiModeManager uiModeManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
+        boolean isDarkMode = (uiModeManager.getNightMode() == UiModeManager.MODE_NIGHT_YES
+                || uiModeManager.getNightMode() == UiModeManager.MODE_NIGHT_AUTO);
+
+        if (isDarkMode) {
+            timeSpanLabel.setTextColor(Color.WHITE);
+        } else {
+            timeSpanLabel.setTextColor(Color.BLACK);
+        }
+
+
+// Helper to update label
+        Runnable updateLabel = new Runnable() {
+            @Override
+            public void run() {
+                int seconds = voltageChart.getTimeSpanSeconds();
+                int minutes = seconds / 60;
+                if (minutes < 1) {
+                    timeSpanLabel.setText("↤ " + seconds + " sec ↦");
+                } else {
+                    timeSpanLabel.setText("↤ " + minutes +","+(seconds-(minutes*60))+ " min ↦");
+                }
+            }
+        };
+
+// Initial label update
+        updateLabel.run();
+
+        zoomOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int span = voltageChart.getTimeSpanSeconds();
+                if (span < 1800) { // limit 30 minutes
+                    voltageChart.setTimeSpanSeconds(span + 30);
+                    updateLabel.run();
+                }
+            }
+        });
+
+        zoomInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int span = voltageChart.getTimeSpanSeconds();
+                if (span > 60) { // limit 1 minute
+                    voltageChart.setTimeSpanSeconds(span - 30);
+                    updateLabel.run();
+                }
+            }
+        });
+
+
+        handler.postDelayed(updateVoltageTask, 1000);
 
         // Set initial state for the checkbox
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
@@ -121,6 +180,8 @@ public class MainActivity extends Activity {
         } else {
             startNotificationService();
         }
+
+
     }
 
     private void showAutostartDialog() {
@@ -206,6 +267,7 @@ public class MainActivity extends Activity {
     }
 
 
+
     private Runnable updateVoltageTask = new Runnable() {
         @Override
         public void run() {
@@ -214,17 +276,61 @@ public class MainActivity extends Activity {
             voltageTextView.setText("" + voltage/1000.0 + " V");
             voltageTextView.setTextColor(colors[colorIndex]);
             colorIndex = (colorIndex + 1) % colors.length;
-
+/*
             batteryVoltageManager.checkAndRecordVoltages();
             updateMinMaxVoltageDisplay();
+*/
+            // update chart
+            voltageChart.addValue((float) (voltage/1000.0));
 
-            handler.postDelayed(this, 500);
+            handler.postDelayed(this, 1000);
+        }
+    };
+
+
+    private BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
+
+            if (voltage > 0) {
+                double voltageInVolts = voltage / 1000.0;
+                            /*
+                voltageTextView.setText(voltageInVolts + " V");
+                voltageTextView.setTextColor(colors[colorIndex]);
+                colorIndex = (colorIndex + 1) % colors.length;
+*/
+                batteryVoltageManager.checkAndRecordVoltages();
+                updateMinMaxVoltageDisplay();
+
+                voltageChart.addValue((float) voltageInVolts);
+            }
         }
     };
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        registerReceiver(batteryReceiver, filter);
+        //handler.postDelayed(updateVoltageTask, 1000);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(batteryReceiver);
+        //handler.removeCallbacks(updateVoltageTask);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
+        try {
+            unregisterReceiver(batteryReceiver);
+        } catch (IllegalArgumentException e) {
+            // receiver was probably not registered - ignore
+        }
         handler.removeCallbacks(updateVoltageTask);
     }
 

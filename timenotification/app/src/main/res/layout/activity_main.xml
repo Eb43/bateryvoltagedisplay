@@ -1,38 +1,20 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_centerHorizontal="true"
-    android:padding="16dp">
-
-    <!-- RadioGroup for Text Color Selection -->
-
-
-    <TextView
-        android:id="@+id/eb43githubio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="eb43.github.io"
-        android:textAlignment="center"
-        android:textColor="#D4EFF3"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/exitButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.525"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    android:padding="16dp"
+    tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/appIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8sp"
         android:scaleX="1.2"
         android:scaleY="1.2"
-        android:layout_marginTop="8sp"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -47,17 +29,13 @@
         android:textAlignment="center"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appIcon"
-        app:layout_constraintVertical_bias="0.168" />
+        app:layout_constraintTop_toBottomOf="@+id/appIcon" />
 
     <TextView
         android:id="@+id/voltageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text=" -1mV "
         android:textAlignment="center"
@@ -73,88 +51,133 @@
         android:layout_marginTop="10dp"
         android:text="Min (0%): Not recorded | Max (100%): Not recorded"
         android:textAlignment="center"
-        android:textSize="16sp"
         android:textColor="#808080"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/voltageTextView" />
 
-    <RadioGroup
-        android:id="@+id/textColorRadioGroup"
-        android:layout_width="344dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
+    <com.example.timenotification.RollingChartView
+        android:id="@+id/voltageChart"
+        android:layout_width="438dp"
+        android:layout_height="222dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="37dp"
-        android:orientation="horizontal"
+        android:paddingLeft="45dp"
+        android:paddingRight="45dp"
+        android:paddingBottom="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.328"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/minMaxVoltageTextView">
+        app:layout_constraintTop_toBottomOf="@+id/minMaxVoltageTextView" />
+
+
+    <LinearLayout
+        android:id="@+id/chartControls"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/voltageChart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/zoomInButton"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:text="−" />
 
         <TextView
-            android:id="@+id/editTextText"
-            android:layout_width="119dp"
-            android:layout_height="52dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
+            android:id="@+id/timeSpanLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center_vertical"
+            android:text="1 min"
+            android:textSize="16sp"
+            android:textColor="@android:color/black" />
 
-            android:text="Status bar icon color:"
-            android:textAlignment="center"
-            android:textSize="18sp" />
+        <Button
+            android:id="@+id/zoomOutButton"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:text="+" />
+    </LinearLayout>
+
+    <!-- The important fixed part -->
+    <CheckBox
+        android:id="@+id/autostartCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:autoSizeMaxTextSize="15sp"
+        android:autoSizeMinTextSize="5sp"
+        android:autoSizeTextType="uniform"
+        android:text="Enable\nAuto\nStart"
+
+        app:layout_constraintBottom_toBottomOf="@+id/exitButton"
+        app:layout_constraintEnd_toStartOf="@+id/exitButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/exitButton" />
+
+    <Button
+        android:id="@+id/exitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoSizeMaxTextSize="27sp"
+        android:autoSizeMinTextSize="8sp"
+        android:autoSizeTextType="uniform"
+        android:text="@string/kill_app_exit"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@+id/tempChart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/autostartCheckBox"
+        app:layout_constraintEnd_toStartOf="@+id/textColorRadioGroup"
+        app:layout_constraintHorizontal_chainStyle="packed" />
+
+    <RadioGroup
+        android:id="@+id/textColorRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="@+id/exitButton"
+        app:layout_constraintBottom_toBottomOf="@+id/exitButton"
+        app:layout_constraintStart_toEndOf="@+id/exitButton"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/radioLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/notification_icon_text_color"
+            android:layout_marginBottom="4dp" />
 
         <RadioButton
             android:id="@+id/radioBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Black Text" />
+            android:text="@string/black" />
 
         <RadioButton
             android:id="@+id/radioWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="White Text" />
+            android:text="@string/white" />
     </RadioGroup>
 
-    <CheckBox
-        android:id="@+id/autostartCheckBox"
+    <TextView
+        android:id="@+id/eb43githubio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="272dp"
-        android:layout_marginBottom="13sp"
-        android:autoSizeMaxTextSize="15sp"
-        android:autoSizeMinTextSize="5sp"
-        android:autoSizeTextType="uniform"
-        android:text="Enable \n Auto \n Start"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.21"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textColorRadioGroup"
-        app:layout_constraintVertical_bias="0.845"
-        />
-
-    <Button
-        android:id="@+id/exitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:layout_marginBottom="13sp"
-        android:autoSizeMaxTextSize="27sp"
-        android:autoSizeMinTextSize="8sp"
-        android:autoSizeTextType="uniform"
-        android:layoutDirection="inherit"
-        android:text="&#128683; &#9760; \n Kill app \n &amp; \n Exit"
+        android:layout_marginBottom="8dp"
+        android:text="Eugen Barilyuk\neb43.github.io"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.532"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/minMaxVoltageTextView"
-        app:layout_constraintVertical_bias="0.845" />
-
+        android:textColor="#7B7F80"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/exitButton"
+        app:layout_constraintEnd_toEndOf="@+id/exitButton"
+        app:layout_constraintStart_toStartOf="@+id/exitButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

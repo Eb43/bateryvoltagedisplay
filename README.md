@@ -2,10 +2,12 @@
 <h1>Android battery voltage indicator in status bar</h1>
 
 
-<p>&#128190; &nbsp Download the Android Batery Voltage Display APK file:
-  [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+<p>&#128190; &nbsp Download the Android Batery Voltage Display APK file:<br>
+<a href="https://f-droid.org/en/packages/com.example.timenotification/> 
+  <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
      alt="Get it on F-Droid"
-     height="80">](https://f-droid.org/en/packages/com.example.timenotification/)
+     height="80"></a>
+  <br>
   or download the latest APK from the Releases Section
 <a href="https://github.com/Eb43/bateryvoltagedisplay/releases">https://github.com/Eb43/bateryvoltagedisplay/releases</a></p>
 <p>or</p>

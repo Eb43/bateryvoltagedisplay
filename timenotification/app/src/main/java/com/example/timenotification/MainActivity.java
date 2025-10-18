@@ -273,7 +273,7 @@ public class MainActivity extends Activity {
         public void run() {
             int voltage = batteryVoltageManager.getCurrentBatteryVoltage();
 
-            voltageTextView.setText("" + voltage/1000.0 + " V");
+            voltageTextView.setText("\uD83D\uDD0B " + voltage/1000.0 + " V");
             voltageTextView.setTextColor(colors[colorIndex]);
             colorIndex = (colorIndex + 1) % colors.length;
 /*

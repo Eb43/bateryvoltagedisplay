@@ -3,10 +3,7 @@
 
 
 <p>&#128190; &nbsp Download the Android Batery Voltage Display APK file:<br>
-<a href="https://f-droid.org/en/packages/com.example.timenotification/> 
-  <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-     alt="Get it on F-Droid"
-     height="80"></a>
+<a href="https://f-droid.org/en/packages/com.example.timenotification/"><img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get BatteryVoltageDisplay on F-Droid" height="80"></a>
   <br>
   or download the latest APK from the Releases Section
 <a href="https://github.com/Eb43/bateryvoltagedisplay/releases">https://github.com/Eb43/bateryvoltagedisplay/releases</a></p>

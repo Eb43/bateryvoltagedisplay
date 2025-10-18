@@ -3,7 +3,7 @@
 
 
 <p>&#128190; &nbsp Download the Android Batery Voltage Display APK file:
-<a href="https://github.com/Eb43/bateryvoltagedisplay/releases/download/v1.0/batteryvoltagedisplay.apk">https://github.com/Eb43/bateryvoltagedisplay/releases/download/v1.0/batteryvoltagedisplay.apk</a></p>
+<a href="https://github.com/Eb43/bateryvoltagedisplay/releases">https://github.com/Eb43/bateryvoltagedisplay/releases</a></p>
 
 <div style="">
   <img alt="visualización del voltaje de la batería en Android" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/download.jpg" style="display: inline-block; margin-left:30px; width: 700px; object-fit: none; object-position: 1% 1%"/>

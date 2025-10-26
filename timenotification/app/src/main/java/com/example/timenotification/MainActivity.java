@@ -143,7 +143,7 @@ public class MainActivity extends Activity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
                 editor.putBoolean(AUTO_START_KEY, isChecked);
-                editor.apply();
+                editor.commit();
 
                 if (isChecked) {
                     showAutostartDialog();
@@ -158,7 +158,7 @@ public class MainActivity extends Activity {
                 boolean radioChosenBlack = checkedId == R.id.radioBlack;
                 SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
                 editor.putBoolean(RADIO_CHOSEN_BLACK_KEY, radioChosenBlack);
-                editor.apply();
+                editor.commit();
             }
         });
 
@@ -166,8 +166,10 @@ public class MainActivity extends Activity {
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stopNotificationService();
-                finishAndRemoveTask();
+                stopNotificationService(); // stop your running service
+                handler.removeCallbacks(updateVoltageTask); // stop periodic tasks
+                finishAndRemoveTask(); // close activity
+                System.exit(0); // terminate current process
             }
         });
 
@@ -276,10 +278,10 @@ public class MainActivity extends Activity {
             voltageTextView.setText("\uD83D\uDD0B " + voltage/1000.0 + " V");
             voltageTextView.setTextColor(colors[colorIndex]);
             colorIndex = (colorIndex + 1) % colors.length;
-/*
+
             batteryVoltageManager.checkAndRecordVoltages();
             updateMinMaxVoltageDisplay();
-*/
+
             // update chart
             voltageChart.addValue((float) (voltage/1000.0));
 
@@ -295,7 +297,7 @@ public class MainActivity extends Activity {
 
             if (voltage > 0) {
                 double voltageInVolts = voltage / 1000.0;
-                            /*
+       /*
                 voltageTextView.setText(voltageInVolts + " V");
                 voltageTextView.setTextColor(colors[colorIndex]);
                 colorIndex = (colorIndex + 1) % colors.length;

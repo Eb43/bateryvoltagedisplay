@@ -74,6 +74,7 @@ public class TimeNotificationService extends Service {
         IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         registerReceiver(batteryReceiver, filter);
 
+
         /*
         runnable = new Runnable() {
             @Override
@@ -102,7 +103,22 @@ public class TimeNotificationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand: Service started");
-        startForeground(NOTIFICATION_ID, createNotification("0.0 V"));
+
+
+        // Read latest sticky battery intent immediately (returns null only in rare cases)
+        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        Intent batteryStatus = registerReceiver(null, filter);
+        String initialVoltageText = "0.0 V"; // default fallback (no unit)
+
+        if (batteryStatus != null) {
+            int voltageMv = batteryStatus.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
+            if (voltageMv != -1) {
+                // Same formatting you already use elsewhere: volts as double
+                initialVoltageText = String.valueOf(voltageMv / 1000.0);
+            }
+        }
+
+        startForeground(NOTIFICATION_ID, createNotification(initialVoltageText));
         return START_STICKY;
     }
 

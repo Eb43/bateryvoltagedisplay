@@ -3,3 +3,6 @@ V1.2 changes:
 • Added a chart for visual voltage monitoring pleasure. Chart restarst when app's main window relaunched.
 • Now supports Dark Theme.
 • Voltage value in Notification now updates on battery change, not on fixed timer
+• Fixed UI bug that displayed in the notification 0.0 V instead of actual voltage reading when user relaunched the previously closed main activity.
+• Fixed UI bug that delayed update of the min and max voltagevalues on main activity screen.
+• ExitButton now terminates current process when pressed by executing System.exit.

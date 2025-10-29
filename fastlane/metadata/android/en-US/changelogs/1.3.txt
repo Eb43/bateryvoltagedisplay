@@ -1,5 +1,0 @@
-V1.3 changes:
-
-• Fixed UI bug that displayed in the notification 0.0 V instead of actual voltage reading when user relaunched the previously closed main activity.
-• Fixed UI bug that delayed update of the min and max voltagevalues on main activity screen.
-• ExitButton now terminates current process when pressed by executing System.exit.

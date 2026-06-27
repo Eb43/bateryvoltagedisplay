@@ -1,5 +1,5 @@
-
-<h1>Android battery voltage indicator in status bar</h1>
+<h1>Voltascano</h1>
+<h2>Android battery voltage indicator in status bar</h2>
 
 
 <p>&#128190; &nbsp Download the Android Batery Voltage Display APK file:<br>
@@ -12,7 +12,7 @@
   <img alt="visualización del voltaje de la batería en Android" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/download.jpg" style="display: inline-block; margin-left:30px; width: 700px; object-fit: none; object-position: 1% 1%"/>
 </div>
 
-<p>This app displays the current battery voltage of Android smartphone. The battery voltage is shown over other app's through the persistent notification and dynamic icon in the Android system status bar.</p>
+<p>This Voltascano app displays the current battery voltage of Android smartphone. The battery voltage is shown over other app's through the persistent notification and dynamic icon in the Android system status bar.</p>
 
 
 <div style="">
@@ -31,9 +31,9 @@
 <img alt="visualización del voltaje de la batería en Android" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/request%20for%20displaying%20voltage%20in%20Android%20notification%20area.png" style="width:300px; display: inline-block; margin-left:30px;"/>
 </div>
 
-<p>The <strong>Battery Voltage Display</strong> app is a straightforward yet powerful utility designed for Android smartphones. It provides users with precise real-time battery voltage readings, displayed both on the device’s system status bar and in a persistent notification within the notification area.</p>
+<p>The <strong>Voltascano Battery Voltage Display</strong> app is a straightforward yet powerful utility designed for Android smartphones. It provides users with precise real-time battery voltage readings, displayed both on the device’s system status bar and in a persistent notification within the notification area.</p>
 
-<h2>Key Features:</h2>
+<h2>Key Voltascano Features:</h2>
 <ul>
 <li><strong>User-Friendly Interface:</strong> Designed with simplicity in mind, ensuring easy navigation and quick access to vital battery data.</li>
 <li><strong>Automatic Startup Support:</strong> Enables continuous monitoring without requiring manual app relaunches after a reboot.</li>
@@ -81,7 +81,7 @@
 <li><strong>Prolonged Battery Life:</strong> Users can make informed decisions about battery replacement or conservation strategies.</li>
 </ul>
 
-<p>The <strong>Battery Voltage Display</strong> app is an excellent tool for anyone who wants detailed insights into their Android smartphone’s battery performance. With its lightweight design and easy accessibility, users can efficiently monitor their battery health and optimize device usage.</p>
+<p>The <strong>Voltascano Battery Voltage Display</strong> app is an excellent tool for anyone who wants detailed insights into their Android smartphone’s battery performance. With its lightweight design and easy accessibility, users can efficiently monitor their battery health and optimize device usage.</p>
 
 <br>
 

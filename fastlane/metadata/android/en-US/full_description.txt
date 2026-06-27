@@ -1,4 +1,4 @@
-BatteryVoltageDisplay shows Android phone’s real-time battery voltage. The information is always visible in an icon in the status bar and in a notification, even while you use other apps.
+Voltascano shows Android phone’s real-time battery voltage. The information is always visible in an icon in the status bar and in a notification, even while you use other apps.
 
 Practical uses of monitoring battery voltage:
 
@@ -21,7 +21,7 @@ Practical uses of monitoring battery voltage:
        Quickly know a replacement battery’s quaity. A good battery holds stable voltage under load, while a poor-quality battery drops quickly under use and spikes sharply when charging.
 
 
-The Battery Voltage Display app is a tool for anyone who wants detailed insights into their Android smartphone’s battery health. 
+The Voltascano Battery Voltage Display app is a tool for anyone who wants detailed insights into their Android smartphone’s battery health. 
 
 
 Key Features:

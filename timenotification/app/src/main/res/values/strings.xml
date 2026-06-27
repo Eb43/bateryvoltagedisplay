@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BatteryVoltageDisplay</string>
+    <string name="app_name">Voltascano</string>
 
     <!-- Main Activity -->
     <string name="battery_temperature_label">Battery Voltage:</string>

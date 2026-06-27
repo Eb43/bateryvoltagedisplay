@@ -53,6 +53,11 @@ public class MainActivity extends Activity {
     private static final String RADIO_CHOSEN_BLACK_KEY = "RadioChosenBlack";
     private RollingChartView voltageChart;
 
+    private static final String ICON_SCALE_KEY = "IconScale";
+    private TextView iconScaleTextView;
+    private Button iconScaleMinusButton;
+    private Button iconScalePlusButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +78,11 @@ public class MainActivity extends Activity {
         Button zoomOutButton = findViewById(R.id.zoomOutButton);
         Button zoomInButton = findViewById(R.id.zoomInButton);
         TextView timeSpanLabel = findViewById(R.id.timeSpanLabel);
+
+        iconScaleTextView = findViewById(R.id.iconScaleTextView);
+        iconScaleMinusButton = findViewById(R.id.iconScaleMinusButton);
+        iconScalePlusButton = findViewById(R.id.iconScalePlusButton);
+
         UiModeManager uiModeManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
         boolean isDarkMode = (uiModeManager.getNightMode() == UiModeManager.MODE_NIGHT_YES
                 || uiModeManager.getNightMode() == UiModeManager.MODE_NIGHT_AUTO);
@@ -83,6 +93,49 @@ public class MainActivity extends Activity {
             timeSpanLabel.setTextColor(Color.BLACK);
         }
 
+
+
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        final int[] iconScalePercent = {
+                prefs.getInt(ICON_SCALE_KEY, 100)
+        };
+
+        iconScaleTextView.setText(iconScalePercent[0] + "%");
+        iconScaleMinusButton.setOnClickListener(v -> {
+            if (iconScalePercent[0] > 1) {
+                iconScalePercent[0]--;
+
+                iconScaleTextView.setText(iconScalePercent[0] + "%");
+
+                SharedPreferences.Editor editor =
+                        getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+
+                editor.putInt(ICON_SCALE_KEY, iconScalePercent[0]);
+                editor.apply();
+
+                Intent intent = new Intent(MainActivity.this, TimeNotificationService.class);
+                intent.setAction("UPDATE_NOTIFICATION");
+                startService(intent);
+            }
+        });
+
+        iconScalePlusButton.setOnClickListener(v -> {
+            if (iconScalePercent[0] < 300) {
+                iconScalePercent[0]++;
+
+                iconScaleTextView.setText(iconScalePercent[0] + "%");
+
+                SharedPreferences.Editor editor =
+                        getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+
+                editor.putInt(ICON_SCALE_KEY, iconScalePercent[0]);
+                editor.apply();
+
+                Intent intent = new Intent(MainActivity.this, TimeNotificationService.class);
+                intent.setAction("UPDATE_NOTIFICATION");
+                startService(intent);
+            }
+        });
 
 // Helper to update label
         Runnable updateLabel = new Runnable() {
@@ -127,10 +180,9 @@ public class MainActivity extends Activity {
         handler.postDelayed(updateVoltageTask, 1000);
 
         // Set initial state for the checkbox
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean isAutoStartEnabled = prefs.getBoolean(AUTO_START_KEY, false);
         autostartCheckBox.setChecked(isAutoStartEnabled);
-        boolean radioChosenBlack = prefs.getBoolean(RADIO_CHOSEN_BLACK_KEY, true);
+        boolean radioChosenBlack = prefs.getBoolean(RADIO_CHOSEN_BLACK_KEY, false);
         radioBlack.setChecked(radioChosenBlack);
         radioWhite.setChecked(!radioChosenBlack);
 

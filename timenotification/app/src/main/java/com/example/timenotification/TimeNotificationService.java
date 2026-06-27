@@ -38,7 +38,7 @@ public class TimeNotificationService extends Service {
     private static final String RADIO_CHOSEN_BLACK_KEY = "RadioChosenBlack";
     private int TEXT_COLOR;
 
-
+    private static final String ICON_SCALE_KEY = "IconScale";
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -56,7 +56,7 @@ public class TimeNotificationService extends Service {
 
         // Load the saved text color preference
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        boolean radioChosenBlack = prefs.getBoolean(RADIO_CHOSEN_BLACK_KEY, true);
+        boolean radioChosenBlack = prefs.getBoolean(RADIO_CHOSEN_BLACK_KEY, false);
         TEXT_COLOR = radioChosenBlack ? Color.BLACK : Color.WHITE;
 
         //handler = new Handler(Looper.getMainLooper());
@@ -153,7 +153,7 @@ public class TimeNotificationService extends Service {
         Log.d(TAG, "createNotification: Creating notification with voltage: " + voltageText);
 
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        boolean isRadioChosenBlack = prefs.getBoolean(RADIO_CHOSEN_BLACK_KEY, true);
+        boolean isRadioChosenBlack = prefs.getBoolean(RADIO_CHOSEN_BLACK_KEY, false);
         int TEXT_COLOR = isRadioChosenBlack ? Color.BLACK : Color.WHITE;
 
         // Get min and max voltages from shared preferences
@@ -201,7 +201,14 @@ public class TimeNotificationService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         String shortVoltageText = voltageText.length() > 4 ? voltageText.substring(0, 4) : voltageText;
-        Bitmap voltageBitmap = BitmapUtils.textToBitmap(shortVoltageText, TEXT_COLOR);
+        //Bitmap voltageBitmap = BitmapUtils.textToBitmap(shortVoltageText, TEXT_COLOR);
+        int iconScalePercent = prefs.getInt(ICON_SCALE_KEY, 100);
+        Bitmap voltageBitmap =
+                BitmapUtils.textToBitmap(
+                        shortVoltageText,
+                        TEXT_COLOR,
+                        iconScalePercent / 100f
+                );
         Icon icon = Icon.createWithBitmap(voltageBitmap);
 
         return new Notification.Builder(this, CHANNEL_ID)

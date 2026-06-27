@@ -60,14 +60,17 @@
     <com.example.timenotification.RollingChartView
         android:id="@+id/voltageChart"
         android:layout_width="438dp"
-        android:layout_height="222dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.20"
         android:layout_marginTop="20dp"
         android:paddingLeft="45dp"
         android:paddingRight="45dp"
         android:paddingBottom="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/minMaxVoltageTextView"
+        app:layout_constraintBottom_toTopOf="@id/chartControls"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/minMaxVoltageTextView" />
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
 
     <LinearLayout
@@ -103,6 +106,46 @@
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:text="+" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/iconScaleRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chartControls">
+
+        <TextView
+            android:id="@+id/iconTextScale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Icon text size:"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/iconScaleMinusButton"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="-" />
+
+        <TextView
+            android:id="@+id/iconScaleTextView"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="100%"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/iconScalePlusButton"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="+" />
+
     </LinearLayout>
 
     <!-- The important fixed part -->

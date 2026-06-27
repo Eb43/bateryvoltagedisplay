@@ -1,4 +1,4 @@
-BatteryVoltageDisplay muestra el voltaje real de la batería de un teléfono Android en tiempo real. La información siempre es visible en el ícono de la barra de estado y en la notificación, incluso cuando se utilizan otras aplicaciones.
+Voltascano muestra el voltaje real de la batería de un teléfono Android en tiempo real. La información siempre es visible en el ícono de la barra de estado y en la notificación, incluso cuando se utilizan otras aplicaciones.
 
 Aplicaciones prácticas del monitoreo del voltaje de la batería:
 
@@ -20,7 +20,7 @@ Aplicaciones prácticas del monitoreo del voltaje de la batería:
     🔎 Evaluación de la capacidad de una batería reemplazada
        Conozca rápidamente la calidad de la batería reemplazada. Una buena batería mantiene un voltaje estable bajo carga, mientras que una de baja calidad pierde voltaje rápidamente durante el uso y aumenta de manera abrupta al cargarla.
 
-Battery Voltage Display es una herramienta para quienes desean ver siempre información actualizada en tiempo real sobre el estado de la batería de su smartphone Android.
+Voltascano Battery Voltage Display es una herramienta para quienes desean ver siempre información actualizada en tiempo real sobre el estado de la batería de su smartphone Android.
 
 Funciones principales:
 

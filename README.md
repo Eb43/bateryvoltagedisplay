@@ -22,7 +22,7 @@
 </div>
 
 <div style="">
-  <img alt="visualización del voltaje de la batería en Android" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/notification-shade.jpg" style="width:300px; display: inline-block; margin-left:30px;"/>
+  <img alt="visualización del voltaje de la batería en Android" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpg" style="width:300px; display: inline-block; margin-left:30px;"/>
   <img alt="visualización del voltaje de la batería en Android" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/lockscreen.jpg" style="width:300px; display: inline-block; margin-left:30px;"/>
   </div>
   

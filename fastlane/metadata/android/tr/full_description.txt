@@ -1,0 +1,35 @@
+Voltascano, Android telefonunuzun pil voltajını gerçek zamanlı olarak gösterir. Bilgiler, siz diğer uygulamaları kullanırken bile durum çubuğundaki bir simgede ve bir bildirimde her zaman görünür.
+
+Pil voltajını izlemenin pratik kullanım alanları:
+
+🔋 Pilin gerçek durumunu kontrol edin
+    Pilin yıpranma belirtilerini tespit edin. Ani veya düzensiz voltaj düşüşleri, pilin eskimeye başladığının ilk işaretleri olabilir.
+
+🔌 Arızalı şarj cihazlarını veya kabloları tespit edin
+    Şarj sırasında voltajın düzenli bir şekilde yükselmesi gerekir (örneğin 3,7 V → 4,2 V). Voltaj sabit kalıyor veya düzensiz değişiyorsa, kablo ya da şarj adaptörü büyük olasılıkla arızalıdır.
+
+💀 Beklenmedik kapanmaları önleyin
+    Voltajı izleyerek telefonun düşük pil nedeniyle tam olarak hangi noktada kapandığını görebilirsiniz. Böylece cihazın %30 pil seviyesi gösterirken aniden kapanması gibi sürprizleri önleyebilirsiniz.
+
+📈 Gereksiz pil değişimlerinden tasarruf edin
+    Pil voltajını izleyerek pilin gerçek durumunu değerlendirin ve yalnızca gerçekten gerektiğinde değiştirin.
+
+⚠️ Pil ömrünü uzatın
+    Piller, maksimum voltaj seviyesine ulaştıklarında en fazla strese maruz kalırlar. Bu durum genellikle şarj göstergesi %100'e ulaşmadan önce gerçekleşir. Voltajı izleyerek telefonunuzu en uygun anda şarjdan çıkarabilir, pili daha az zorlayabilir ve kullanım ömrünü uzatabilirsiniz.
+
+🔎 Yan sanayi yedek pillerin kalitesini değerlendirin
+    Yedek bir pilin kalitesini hızlıca değerlendirin. Kaliteli bir pil yük altında voltajını kararlı şekilde korurken, düşük kaliteli bir pil kullanım sırasında hızla voltaj kaybeder ve şarj olurken keskin voltaj artışları gösterir.
+
+Voltascano Battery Voltage Display, Android akıllı telefonunun pil sağlığı hakkında ayrıntılı bilgi edinmek isteyen herkes için geliştirilmiş bir araçtır.
+
+Başlıca Özellikler:
+
+Kullanıcı dostu arayüz: Basit ve anlaşılır tasarımı sayesinde önemli pil bilgilerine hızlı ve kolay erişim sağlar.
+Otomatik başlatma desteği: Cihaz yeniden başlatıldıktan sonra uygulamayı yeniden açmanıza gerek kalmadan sürekli izleme sağlar.
+Düşük kaynak kullanımı: Minimum RAM kullanır ve sistem performansını etkilemez.
+Gizli işlemler yoktur: Arka planda çalışan birçok uygulamanın aksine, gereksiz pil tüketimine neden olan gizli servisler çalıştırmaz.
+Manuel çıkış özelliği: Tek bir düğmeyle uygulamayı tamamen kapatmanıza olanak tanır ve sistem kaynakları üzerinde tam kontrol sağlar.
+Reklamsız deneyim: Uygulama tamamen ücretsizdir ve kullanıcı deneyimini bozan reklamlar içermez.
+Geniş uyumluluk: Android 8 ve daha yeni sürümleri çalıştıran cihazlarla tam uyumludur.
+
+Eugen Barilyuk (EB43) https://eb43.github.io tarafından geliştirilmiştir. 

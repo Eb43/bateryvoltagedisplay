@@ -1,0 +1,1 @@
+Voltascano exibe a voltagem da bateria na barra de status do sistema

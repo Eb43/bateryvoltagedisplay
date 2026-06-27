@@ -1,0 +1,1 @@
+Voltascano wyświetla napięcie baterii na systemowym pasku stanu

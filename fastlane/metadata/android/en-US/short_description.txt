@@ -1,1 +1,1 @@
-BatteryVoltageDisplay shows battery voltage in the system status bar
+Voltascano shows battery voltage in the system status bar

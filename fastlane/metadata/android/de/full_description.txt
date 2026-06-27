@@ -1,0 +1,36 @@
+Voltascano zeigt die Batteriespannung Ihres Android-Smartphones in Echtzeit an. Die Spannung ist jederzeit als Symbol in der Statusleiste sowie in einer Benachrichtigung sichtbar, auch wenn Sie andere Apps verwenden.
+
+Praktische Einsatzmöglichkeiten der Spannungsüberwachung:
+
+🔋 Den tatsächlichen Zustand des Akkus prüfen
+    Erkennen Sie Anzeichen einer Alterung. Plötzliche oder ungewöhnliche Spannungseinbrüche können auf einen verschleißenden Akku hinweisen.
+
+🔌 Defekte Ladegeräte oder Kabel erkennen
+    Während des Ladevorgangs sollte die Spannung gleichmäßig ansteigen (z. B. von 3,7 V auf 4,2 V). Bleibt sie konstant oder schwankt ungewöhnlich, kann das Ladegerät oder Kabel fehlerhaft sein.
+
+💀 Unerwartete Abschaltungen vermeiden
+    Beobachten Sie die Spannung und erkennen Sie den Punkt, an dem sich das Smartphone wegen eines leeren Akkus abschaltet. So vermeiden Sie Überraschungen, etwa wenn sich das Gerät trotz 30 % Akkustand ausschaltet.
+
+📈 Unnötige Akkutausche vermeiden
+    Überwachen Sie die Batteriespannung, um den tatsächlichen Zustand des Akkus einzuschätzen und ihn nur dann zu ersetzen, wenn es wirklich erforderlich ist.
+
+⚠️ Die Lebensdauer des Akkus verlängern
+    Akkus werden bei ihrer maximalen Spannung besonders stark belastet. Dieser Punkt wird häufig erreicht, bevor Android 100 % Ladung anzeigt. Durch die Spannungsüberwachung können Sie das Ladegerät rechtzeitig trennen und den Verschleiß reduzieren.
+
+🔎 Die Qualität von Ersatzakkus beurteilen
+    Prüfen Sie schnell die Qualität eines Ersatzakkus. Ein hochwertiger Akku hält seine Spannung unter Last stabil, während ein minderwertiger Akku unter Belastung schnell einbricht und beim Laden starke Spannungsspitzen zeigt.
+
+Voltascano ist das ideale Werkzeug für alle, die detaillierte Informationen über den Zustand des Akkus ihres Android-Smartphones erhalten möchten.
+
+Hauptfunktionen:
+
+* Einfache und übersichtliche Benutzeroberfläche für schnellen Zugriff auf alle wichtigen Akkudaten.
+* Automatischer Start nach dem Einschalten des Geräts für eine kontinuierliche Überwachung.
+* Sehr geringer RAM-Verbrauch ohne spürbare Auswirkungen auf die Systemleistung.
+* Keine versteckten Hintergrunddienste, die den Akku unnötig belasten.
+* App kann jederzeit per Knopfdruck vollständig beendet werden.
+* Komplett werbefrei.
+* Kompatibel mit Android 8 und allen neueren Versionen.
+
+Entwickelt von Eugen Barilyuk (EB43)
+https://eb43.github.io

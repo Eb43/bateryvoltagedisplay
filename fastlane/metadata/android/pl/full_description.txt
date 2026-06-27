@@ -1,0 +1,35 @@
+Voltascano wyświetla napięcie baterii telefonu z Androidem w czasie rzeczywistym. Informacja jest zawsze widoczna jako ikona na pasku stanu oraz w powiadomieniu, nawet podczas korzystania z innych aplikacji.
+
+Praktyczne zastosowania monitorowania napięcia baterii:
+
+🔋 Sprawdź rzeczywisty stan baterii
+   Wykrywaj oznaki zużycia baterii. Nagłe lub nieregularne spadki napięcia mogą być pierwszymi oznakami jej degradacji.
+
+🔌 Wykrywaj wadliwe ładowarki i kable
+   Podczas ładowania napięcie powinno płynnie wzrastać (np. z 3,7 V do 4,2 V). Jeżeli pozostaje na tym samym poziomie lub zmienia się nieregularnie, przewód lub ładowarka mogą być uszkodzone.
+
+💀 Unikaj nieoczekiwanych wyłączeń
+   Monitorowanie napięcia pozwala określić dokładny moment, w którym telefon wyłącza się z powodu rozładowanej baterii. Dzięki temu unikniesz sytuacji, w których urządzenie wyłącza się mimo wskazywania na przykład 30% poziomu naładowania.
+
+📈 Oszczędzaj na niepotrzebnej wymianie baterii
+   Monitoruj napięcie baterii, aby ocenić jej rzeczywisty stan i wymieniaj ją tylko wtedy, gdy jest to naprawdę konieczne.
+
+⚠️ Wydłuż żywotność baterii
+   Bateria jest najbardziej obciążona po osiągnięciu maksymalnego napięcia, co często następuje jeszcze przed wyświetleniem 100% na wskaźniku naładowania. Obserwując napięcie, możesz odłączyć telefon od ładowarki w optymalnym momencie, zmniejszając obciążenie i wydłużając żywotność baterii.
+
+🔎 Oceń jakość zamiennej baterii
+   Szybko sprawdź jakość nowo zakupionej baterii. Dobra bateria utrzymuje stabilne napięcie pod obciążeniem, natomiast słabej jakości szybko traci napięcie podczas użytkowania i wykazuje gwałtowne skoki napięcia podczas ładowania.
+
+Voltascano Battery Voltage Display to narzędzie dla każdego, kto chce uzyskać szczegółowe informacje o stanie baterii swojego smartfona z Androidem.
+
+Najważniejsze funkcje:
+
+Przyjazny interfejs użytkownika - prosty i przejrzysty projekt zapewniający łatwą obsługę oraz szybki dostęp do najważniejszych informacji o baterii.
+Automatyczne uruchamianie - aplikacja może uruchamiać się automatycznie po ponownym włączeniu urządzenia, zapewniając ciągłe monitorowanie bez konieczności ręcznego uruchamiania.
+Niskie zużycie zasobów - aplikacja wykorzystuje minimalną ilość pamięci RAM i nie wpływa zauważalnie na wydajność systemu.
+Brak ukrytych procesów - w przeciwieństwie do wielu aplikacji działających w tle nie uruchamia ukrytych usług, które niepotrzebnie zużywają energię.
+Możliwość całkowitego zamknięcia - aplikację można całkowicie wyłączyć jednym przyciskiem, zachowując pełną kontrolę nad wykorzystaniem zasobów systemowych.
+Bez reklam - aplikacja jest całkowicie darmowa i nie zawiera żadnych uciążliwych reklam.
+Szeroka kompatybilność - działa na urządzeniach z systemem Android 8 oraz nowszymi wersjami.
+
+Autor: Eugen Barilyuk (EB43) https://eb43.github.io

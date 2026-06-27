@@ -1,0 +1,35 @@
+Voltascano exibe a voltagem da bateria do seu telefone Android em tempo real. As informações ficam sempre visíveis em um ícone na barra de status e em uma notificação, mesmo enquanto você utiliza outros aplicativos.
+
+Aplicações práticas do monitoramento da voltagem da bateria:
+
+🔋 Verifique a condição real da bateria
+   Identifique sinais de degradação da bateria. Quedas repentinas ou irregulares de voltagem podem ser os primeiros indícios de desgaste.
+
+🔌 Detecte carregadores ou cabos defeituosos
+   Durante o carregamento, a voltagem deve aumentar de forma contínua (por exemplo, de 3,7 V para 4,2 V). Se ela permanecer estável ou variar de forma irregular, o cabo ou o carregador provavelmente está com defeito.
+
+💀 Evite desligamentos inesperados
+   O monitoramento da voltagem permite identificar o ponto exato em que o telefone desliga por falta de carga. Isso ajuda a evitar surpresas, como o aparelho desligar mesmo indicando 30% de bateria.
+
+📈 Economize com trocas desnecessárias de bateria
+   Monitore a voltagem da bateria para avaliar sua condição real e substitua-a somente quando isso for realmente necessário.
+
+⚠️ Prolongue a vida útil da bateria
+   As baterias sofrem maior desgaste quando atingem sua voltagem máxima, o que geralmente acontece antes de o indicador de carga mostrar 100%. Ao acompanhar a voltagem, você pode desconectar o carregador no momento ideal, reduzindo o estresse da bateria e aumentando sua vida útil.
+
+🔎 Avalie a qualidade de baterias de reposição
+   Descubra rapidamente a qualidade de uma bateria substituta. Uma bateria de boa qualidade mantém a voltagem estável sob carga, enquanto uma bateria de baixa qualidade apresenta quedas rápidas de voltagem durante o uso e picos acentuados durante o carregamento.
+
+O Voltascano Battery Voltage Display é uma ferramenta para quem deseja obter informações detalhadas sobre a saúde da bateria de seu smartphone Android.
+
+Principais recursos:
+
+Interface intuitiva: Desenvolvida para ser simples e fácil de usar, oferecendo acesso rápido às informações mais importantes da bateria.
+Inicialização automática: Permite monitoramento contínuo sem necessidade de abrir o aplicativo manualmente após reiniciar o aparelho.
+Uso eficiente de recursos: Consome pouca memória RAM e não interfere no desempenho do sistema.
+Sem processos ocultos: Diferentemente de muitos aplicativos em segundo plano, não executa serviços ocultos que desperdiçam bateria.
+Encerramento manual: Permite fechar completamente o aplicativo com um único toque, garantindo total controle sobre os recursos do sistema.
+Sem anúncios: O aplicativo é totalmente gratuito e não exibe anúncios intrusivos.
+Ampla compatibilidade: Funciona perfeitamente em dispositivos com Android 8 ou versões mais recentes.
+
+Criado por Eugen Barilyuk (EB43) https://eb43.github.io

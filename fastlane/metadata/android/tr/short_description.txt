@@ -1,0 +1,1 @@
+Voltascano, pil voltajını sistem durum çubuğunda gösterir

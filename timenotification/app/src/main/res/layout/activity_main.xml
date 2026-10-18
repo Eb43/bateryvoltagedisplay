@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Battery Voltage:"
+        android:text="@string/battery_temperature_label"
         android:textAlignment="center"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -110,20 +110,20 @@
 
     <LinearLayout
         android:id="@+id/iconScaleRow"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/chartControls">
 
         <TextView
             android:id="@+id/iconTextScale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Icon text size:"
+            android:text="@string/icon_text_scale_label"
             android:textSize="16sp" />
 
         <Button
@@ -150,6 +150,16 @@
 
     <!-- The important fixed part -->
     <CheckBox
+        android:id="@+id/floatingOverlayCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/floating_overlay_checkbox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iconScaleRow" />
+
+    <CheckBox
         android:id="@+id/autostartCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -157,7 +167,7 @@
         android:autoSizeMaxTextSize="15sp"
         android:autoSizeMinTextSize="5sp"
         android:autoSizeTextType="uniform"
-        android:text="Enable\nAuto\nStart"
+        android:text="@string/enable_auto_start"
 
         app:layout_constraintBottom_toBottomOf="@+id/exitButton"
         app:layout_constraintEnd_toStartOf="@+id/exitButton"

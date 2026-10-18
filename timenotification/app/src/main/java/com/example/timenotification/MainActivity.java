@@ -255,20 +255,20 @@ public class MainActivity extends Activity {
             }
         });
 
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             checkNotificationPermission();
+        } else {
+            startNotificationService();
         }
 
 
     }
 
     private void checkNotificationPermission() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-            startNotificationService();
-            return;
-        }
-
-        if (ContextCompat.checkSelfPermission(
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU
+                || ContextCompat.checkSelfPermission(
                 this, Manifest.permission.POST_NOTIFICATIONS)
                 == PackageManager.PERMISSION_GRANTED) {
             startNotificationService();
@@ -276,12 +276,20 @@ public class MainActivity extends Activity {
         }
 
         AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("R.string.perm_dialog_title")
+                .setTitle(R.string.perm_dialog_title)
                 .setMessage(getString(R.string.perm_dialog_message, 20))
-                .setPositiveButton(R.string.ok, (d, which) -> requestNotificationPermission())
+                .setPositiveButton(R.string.ok, (d, which) ->
+                        requestNotificationPermission())
                 .create();
 
         Handler dialogHandler = new Handler(getMainLooper());
+
+        Runnable timeout = () -> {
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+                requestNotificationPermission();
+            }
+        };
 
         dialog.setOnDismissListener(d ->
                 dialogHandler.removeCallbacksAndMessages(null));
@@ -293,30 +301,29 @@ public class MainActivity extends Activity {
 
             dialogHandler.postDelayed(() -> {
                 if (dialog.isShowing()) {
-                    dialog.setMessage(getString(R.string.perm_dialog_message, seconds));
+                    dialog.setMessage(
+                            getString(R.string.perm_dialog_message, seconds));
                 }
             }, (20 - i) * 1000L);
         }
 
-        dialogHandler.postDelayed(() -> {
-            if (dialog.isShowing()) {
-                dialog.dismiss();
-                requestNotificationPermission();
-            }
-        }, 20000);
+        dialogHandler.postDelayed(timeout, 20000);
     }
 
     private void requestNotificationPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
-                && ContextCompat.checkSelfPermission(
-                this, Manifest.permission.POST_NOTIFICATIONS)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(
-                    this,
-                    new String[]{Manifest.permission.POST_NOTIFICATIONS},
-                    NOTIFICATION_PERMISSION_REQUEST_CODE
-            );
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(
+                    this, Manifest.permission.POST_NOTIFICATIONS)
+                    == PackageManager.PERMISSION_GRANTED) {
+                startNotificationService();
+            } else {
+                ActivityCompat.requestPermissions(
+                        this,
+                        new String[]{Manifest.permission.POST_NOTIFICATIONS},
+                        NOTIFICATION_PERMISSION_REQUEST_CODE);
+            }
+        } else {
+            startNotificationService();
         }
     }
 

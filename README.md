@@ -33,6 +33,15 @@
 
 <p>The <strong>Voltascano Battery Voltage Display</strong> app is a straightforward yet powerful utility designed for Android smartphones. It provides users with precise real-time battery voltage readings, displayed both on the device’s system status bar and in a persistent notification within the notification area.</p>
 
+<h2>Features update</h2>
+<ul>
+  <li>v1.0. Initial release. Battery voltage in system status bar and notification</li>
+  <li>v1.1. Modern Android requires user to enable auto start for an app in System settings. Added a popup window with a reminder to do this action after user checks Auto Start in the app. Duplicating code existed. Refactored to remove code duplication.</li>
+  <li>v1.2.Added battery voltage over time plot. Support for option to scale the time axis of the plot.</li>
+  <li>v1.3. App is renamed from BatteryVoltageDisplay -> Voltascano. Added option to scale the icon text size.</li>
+  <li>v1.4. Added an overlay displaying the voltage on top of any app (useful for full-screen apps such as games). Added support for changing the overlay text size using the notification icon size button. The app opens the Android settings window to make it easier for the user to grant permission to display over other apps. Added a dialog requesting notification permission (Android 13+). The dialog includes a button to open Android notification settings, making it easier for the user to grant notification permission.</li>
+</ul>
+
 <h2>Key Voltascano Features:</h2>
 <ul>
 <li><strong>User-Friendly Interface:</strong> Designed with simplicity in mind, ensuring easy navigation and quick access to vital battery data.</li>

@@ -1,0 +1,8 @@
+V1.4 changes:
+
+• Added an overlay displaying the voltage on top of any app (useful for full-screen apps such as games).
+• Added support for changing the overlay text size using the notification icon size button.
+• The app opens the Android settings window to make it easier for the user to grant permission to display over other apps.
+• Added a dialog requesting notification permission (Android 13+).
+• The dialog includes a button to open Android notification settings, making it easier for the user to grant notification permission.
+• Added interface translations for German, Spanish, Russian, and Brazilian Portuguese.

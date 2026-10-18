@@ -16,19 +16,19 @@
 
 
 <div style="">
-  <img alt="visualización del voltaje de la batería en Android" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/battery-voltage-display-status-bar.jpg" style="display: inline-block; margin-left:30px; width: 300px; object-fit: none; object-position: 1% 1%"/>
+  <img alt="Voltascano  visualización del voltaje de la batería en Android" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/battery-voltage-display-status-bar.jpg" style="display: inline-block; margin-left:30px; width: 300px; object-fit: none; object-position: 1% 1%"/>
 
-<img alt="visualización del voltaje de la batería en Android" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/Main%20screen%20of%20battery%20voltage.png.jpg" style="width:300px; display: inline-block; margin-left:30px;"/>
+<img alt="Voltascano  visualización del voltaje de la batería en Android" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/Main%20screen%20of%20battery%20voltage.png.jpg" style="width:300px; display: inline-block; margin-left:30px;"/>
 </div>
 
 <div style="">
-  <img alt="visualización del voltaje de la batería en Android" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpg" style="width:300px; display: inline-block; margin-left:30px;"/>
-  <img alt="visualización del voltaje de la batería en Android" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/lockscreen.jpg" style="width:300px; display: inline-block; margin-left:30px;"/>
+  <img alt="Voltascano  visualización del voltaje de la batería en Android" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpg" style="width:300px; display: inline-block; margin-left:30px;"/>
+  <img alt="Voltascano  visualización del voltaje de la batería en Android" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/lockscreen.jpg" style="width:300px; display: inline-block; margin-left:30px;"/>
   </div>
   
   <div style="">
-<img alt="visualización del voltaje de la batería en Android" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/Notification%20with%20battery%20voltage.png" style="width:300px; display: inline-block; margin-left:30px;"/>
-<img alt="visualización del voltaje de la batería en Android" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/request%20for%20displaying%20voltage%20in%20Android%20notification%20area.png" style="width:300px; display: inline-block; margin-left:30px;"/>
+<img alt="Voltascano visualización del voltaje de la batería en Android" src="[https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/Notification%20with%20battery%20voltage.png](https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/refs/heads/main/fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpg)" style="width:300px; display: inline-block; margin-left:30px;"/>
+<img alt="Voltascano  visualización del voltaje de la batería en Android" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/request%20for%20displaying%20voltage%20in%20Android%20notification%20area.png" style="width:300px; display: inline-block; margin-left:30px;"/>
 </div>
 
 <p>The <strong>Voltascano Battery Voltage Display</strong> app is a straightforward yet powerful utility designed for Android smartphones. It provides users with precise real-time battery voltage readings, displayed both on the device’s system status bar and in a persistent notification within the notification area.</p>
@@ -39,7 +39,7 @@
   <li>v1.1. Modern Android requires user to enable auto start for an app in System settings. Added a popup window with a reminder to do this action after user checks Auto Start in the app. Duplicating code existed. Refactored to remove code duplication.</li>
   <li>v1.2.Added battery voltage over time plot. Support for option to scale the time axis of the plot.</li>
   <li>v1.3. App is renamed from BatteryVoltageDisplay -> Voltascano. Added option to scale the icon text size.</li>
-  <li>v1.4. Added an overlay displaying the voltage on top of any app (useful for full-screen apps such as games). Added support for changing the overlay text size using the notification icon size button. The app opens the Android settings window to make it easier for the user to grant permission to display over other apps. Added a dialog requesting notification permission (Android 13+). The dialog includes a button to open Android notification settings, making it easier for the user to grant notification permission.</li>
+  <li>v1.4. Added an overlay displaying the voltage on top of any app (useful for full-screen apps such as games). Added support for changing the overlay text size using the notification icon size button. The app opens the Android settings window to make it easier for the user to grant permission to display over other apps. Added a dialog requesting notification permission (Android 13+). The dialog includes a button to open Android notification settings, making it easier for the user to grant notification permission. Added interface translations for German, Spanish, Russian, and Brazilian Portuguese.</li>
 </ul>
 
 <h2>Key Voltascano Features:</h2>

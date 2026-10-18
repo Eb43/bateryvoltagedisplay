@@ -26,4 +26,5 @@
     <string name="autostart_dialog_message">Habilite el permiso de inicio automático para garantizar que las notificaciones funcionen de manera confiable después de reiniciar.</string>
     <string name="open_settings">ABRIR CONFIGURACIÓN</string>
     <string name="ok">ACEPTAR</string>
+    <string name="open_notification_settings">Abrir configuración de notificaciones</string>
 </resources>

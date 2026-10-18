@@ -280,6 +280,14 @@ public class MainActivity extends Activity {
                 .setMessage(getString(R.string.perm_dialog_message, 20))
                 .setPositiveButton(R.string.ok, (d, which) ->
                         requestNotificationPermission())
+                .setNeutralButton(R.string.open_notification_settings, (d, which) -> {
+                    Intent intent = new Intent(
+                            android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+                    intent.putExtra(
+                            android.provider.Settings.EXTRA_APP_PACKAGE,
+                            getPackageName());
+                    startActivity(intent);
+                })
                 .create();
 
         Handler dialogHandler = new Handler(getMainLooper());

@@ -21,9 +21,10 @@
 <string name="notification_content_format">🔋 Battery Voltage: %1$s V</string>
 <string name="notification_expanded_format">🔋 Battery Voltage: %1$s V\nMin (0%%): %2$s | Max (100%%): %3$s</string>
 <string name="perm_dialog_title">Notification permission required</string>
-<string name="perm_dialog_message">Voltascano\'s key feature\n\nBattery voltage monitoring in the notification area\n\nrequires notification permission.\n\nPlease allow silent notifications for this app.\n\n\n\n\n\n\n\nAutomatically closes in: %%1$d s</string>
+<string name="perm_dialog_message">Voltascano\'s key feature\n\nBattery voltage monitoring in the notification area\n\nrequires notification permission.\n\nPlease allow silent notifications for this app.\n\n\n\n\n\n\n\nAutomatically closes in: %1$d s</string>
 <string name="autostart_dialog_title">Autostart Permission Needed</string>
 <string name="autostart_dialog_message">Enable autostart permission to ensure notifications work reliably after reboot.</string>
 <string name="open_settings">OPEN SETTINGS</string>
 <string name="ok">OK</string>
+<string name="open_notification_settings">Open Notification Settings</string>
 </resources>

@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Voltascano</string>
+
+    <!-- Main Activity -->
+    <string name="battery_temperature_label">Batteriespannung:</string>
+    <string name="enable_auto_start">Autostart\naktivieren</string>
+    <string name="kill_app_exit">🚫 ☠ ❌ \n App beenden \n &amp; \n Exit</string>
+    <string name="notification_icon_text_color">Textfarbe des\nBenachrichtigungssymbols:</string>
+    <string name="textColorRadioGroup">Schwarz</string>
+    <string name="black">Schwarz</string>
+    <string name="white">Weiß</string>
+
+    <!-- Newly added strings for multi-language support -->
+    <string name="floating_overlay_checkbox">Spannung im schwebenden Overlay anzeigen</string>
+    <string name="icon_text_scale_label">Textgröße für Symbol und Overlay: </string>
+    <string name="not_recorded">Nicht aufgezeichnet</string>
+    <string name="min_max_format">Min (0%%): %1$s | Max (100%%): %2$s</string>
+    <string name="notification_channel_name">Batteriespannungs-Benachrichtigungskanal</string>
+    <string name="notification_channel_description">Kanal zum Anzeigen von Batteriespannungs-Benachrichtigungen</string>
+    <string name="notification_title">Batteriespannung</string>
+    <string name="notification_content_format">🔋 Batteriespannung: %1$s V</string>
+    <string name="notification_expanded_format">🔋 Batteriespannung: %1$s V\nMin (0%%): %2$s | Max (100%%): %3$s</string>
+    <string name="perm_dialog_title">Benachrichtigungsberechtigung erforderlich</string>
+    <string name="perm_dialog_message">Voltাসcanos Hauptfunktion\n\nÜberwachung der Batteriespannung im Benachrichtigungsbereich\n\nerfordert eine Benachrichtigungsberechtigung.\n\nBitte erlauben Sie stille Benachrichtigungen für diese App.\n\n\n\n\n\n\n\nSchließt sich automatisch in: %1$d s</string>
+    <string name="autostart_dialog_title">Autostart-Berechtigung erforderlich</string>
+    <string name="autostart_dialog_message">Aktivieren Sie die Autostart-Berechtigung, damit Benachrichtigungen nach einem Neustart zuverlässig funktionieren.</string>
+    <string name="open_settings">EINSTELLUNGEN ÖFFNEN</string>
+    <string name="ok">OK</string>
+</resources>

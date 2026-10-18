@@ -9,4 +9,21 @@
     <string name="textColorRadioGroup">Black</string>
     <string name="black">Black</string>
     <string name="white">White</string>
+
+<!-- Newly added strings for multi-language support -->
+<string name="floating_overlay_checkbox">Show voltage in floating overlay</string>
+<string name="icon_text_scale_label">Icon and overlay text size: </string>
+<string name="not_recorded">Not recorded</string>
+<string name="min_max_format">Min (0%%): %1$s | Max (100%%): %2$s</string>
+<string name="notification_channel_name">Battery Voltage Notification Channel</string>
+<string name="notification_channel_description">Channel for displaying battery voltage notifications</string>
+<string name="notification_title">Battery Voltage</string>
+<string name="notification_content_format">🔋 Battery Voltage: %1$s V</string>
+<string name="notification_expanded_format">🔋 Battery Voltage: %1$s V\nMin (0%%): %2$s | Max (100%%): %3$s</string>
+<string name="perm_dialog_title">Notification permission required</string>
+<string name="perm_dialog_message">Voltascano\'s key feature\n\nBattery voltage monitoring in the notification area\n\nrequires notification permission.\n\nPlease allow silent notifications for this app.\n\n\n\n\n\n\n\nAutomatically closes in: %%1$d s</string>
+<string name="autostart_dialog_title">Autostart Permission Needed</string>
+<string name="autostart_dialog_message">Enable autostart permission to ensure notifications work reliably after reboot.</string>
+<string name="open_settings">OPEN SETTINGS</string>
+<string name="ok">OK</string>
 </resources>

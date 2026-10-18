@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Voltascano</string>
+
+    <!-- Main Activity -->
+    <string name="battery_temperature_label">Voltaje de la batería:</string>
+    <string name="enable_auto_start">Habilitar\ninicio\nautomático</string>
+    <string name="kill_app_exit">🚫 ☠ ❌ \n Cerrar app \n &amp; \n Salir</string>
+    <string name="notification_icon_text_color">Color del texto\ndel icono de notificación:</string>
+    <string name="textColorRadioGroup">Negro</string>
+    <string name="black">Negro</string>
+    <string name="white">Blanco</string>
+
+    <!-- Newly added strings for multi-language support -->
+    <string name="floating_overlay_checkbox">Mostrar voltaje en superposición flotante</string>
+    <string name="icon_text_scale_label">Tamaño del texto del icono y superposición: </string>
+    <string name="not_recorded">No registrado</string>
+    <string name="min_max_format">Mín (0%%): %1$s | Máx (100%%): %2$s</string>
+    <string name="notification_channel_name">Canal de notificación de voltaje de batería</string>
+    <string name="notification_channel_description">Canal para mostrar notificaciones de voltaje de batería</string>
+    <string name="notification_title">Voltaje de la batería</string>
+    <string name="notification_content_format">🔋 Voltaje de la batería: %1$s V</string>
+    <string name="notification_expanded_format">🔋 Voltaje de la batería: %1$s V\nMín (0%%): %2$s | Máx (100%%): %3$s</string>
+    <string name="perm_dialog_title">Permiso de notificación requerido</string>
+    <string name="perm_dialog_message">La función principal de Voltascano\n\nMonitoreo del voltaje de la batería en el área de notificación\n\nrequiere permiso de notificación.\n\nPor favor, permita notificaciones silenciosas para esta aplicación.\n\n\n\n\n\n\n\nSe cierra automáticamente en: %1$d s</string>
+    <string name="autostart_dialog_title">Se necesita permiso de inicio automático</string>
+    <string name="autostart_dialog_message">Habilite el permiso de inicio automático para garantizar que las notificaciones funcionen de manera confiable después de reiniciar.</string>
+    <string name="open_settings">ABRIR CONFIGURACIÓN</string>
+    <string name="ok">ACEPTAR</string>
+</resources>

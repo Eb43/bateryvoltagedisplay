@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Voltascano</string>
+
+    <!-- Main Activity -->
+    <string name="battery_temperature_label">Напряжение батареи:</string>
+    <string name="enable_auto_start">Включить\nавтозапуск</string>
+    <string name="kill_app_exit">🚫 ☠ ❌ \n Закрыть прил. \n &amp; \n Выход</string>
+    <string name="notification_icon_text_color">Цвет текста\nиконки уведомления:</string>
+    <string name="textColorRadioGroup">Черный</string>
+    <string name="black">Черный</string>
+    <string name="white">Белый</string>
+
+    <!-- Newly added strings for multi-language support -->
+    <string name="floating_overlay_checkbox">Показывать напряжение поверх окон</string>
+    <string name="icon_text_scale_label">Размер текста значка и оверлея: </string>
+    <string name="not_recorded">Не записано</string>
+    <string name="min_max_format">Мин (0%%): %1$s | Макс (100%%): %2$s</string>
+    <string name="notification_channel_name">Канал уведомлений о напряжении батареи</string>
+    <string name="notification_channel_description">Канал для отображения уведомлений о напряжении батареи</string>
+    <string name="notification_title">Напряжение батареи</string>
+    <string name="notification_content_format">🔋 Напряжение батареи: %1$s В</string>
+    <string name="notification_expanded_format">🔋 Напряжение батареи: %1$s В\nМин (0%%): %2$s | Макс (100%%): %3$s</string>
+    <string name="perm_dialog_title">Требуется разрешение на уведомления</string>
+    <string name="perm_dialog_message">Ключевая функция Voltascano\n\nМониторинг напряжения батареи в области уведомлений\n\nтребует разрешения на уведомления.\n\nПожалуйста, разрешите тихие уведомления для этого приложения.\n\n\n\n\n\n\n\nАвтоматическое закрытие через: %1$d с</string>
+    <string name="autostart_dialog_title">Требуется разрешение на автозапуск</string>
+    <string name="autostart_dialog_message">Включите разрешение на автозапуск, чтобы уведомления работали стабильно после перезагрузки.</string>
+    <string name="open_settings">ОТКРЫТЬ НАСТРОЙКИ</string>
+    <string name="ok">ОК</string>
+</resources>

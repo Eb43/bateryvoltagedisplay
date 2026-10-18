@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Voltascano</string>
+
+    <!-- Main Activity -->
+    <string name="battery_temperature_label">Tensão da bateria:</string>
+    <string name="enable_auto_start">Ativar\nInício\nAutomático</string>
+    <string name="kill_app_exit">🚫 ☠ ❌ \n Fechar app \n &amp; \n Sair</string>
+    <string name="notification_icon_text_color">Cor do texto do\nícone de notificação:</string>
+    <string name="textColorRadioGroup">Preto</string>
+    <string name="black">Preto</string>
+    <string name="white">Branco</string>
+
+    <!-- Newly added strings for multi-language support -->
+    <string name="floating_overlay_checkbox">Mostrar tensão em sobreposição flutuante</string>
+    <string name="icon_text_scale_label">Tamanho do texto do ícone e sobreposição: </string>
+    <string name="not_recorded">Não registrado</string>
+    <string name="min_max_format">Mín (0%%): %1$s | Máx (100%%): %2$s</string>
+    <string name="notification_channel_name">Canal de notificação de tensão da bateria</string>
+    <string name="notification_channel_description">Canal para exibir notificações de tensão da bateria</string>
+    <string name="notification_title">Tensão da Bateria</string>
+    <string name="notification_content_format">🔋 Tensão da bateria: %1$s V</string>
+    <string name="notification_expanded_format">🔋 Tensão da bateria: %1$s V\nMín (0%%): %2$s | Máx (100%%): %3$s</string>
+    <string name="perm_dialog_title">Permissão de notificação necessária</string>
+    <string name="perm_dialog_message">O recurso principal do Voltascano\n\nMonitoramento da tensão da bateria na área de notificação\n\nexige permissão de notificação.\n\nPor favor, permita notificações silenciosas para este aplicativo.\n\n\n\n\n\n\n\nFecha automaticamente em: %1$d s</string>
+    <string name="autostart_dialog_title">Permissão de início automático necessária</string>
+    <string name="autostart_dialog_message">Ative a permissão de início automático para garantir que as notificações funcionem de forma confiável após reiniciar.</string>
+    <string name="open_settings">ABRIR CONFIGURAÇÕES</string>
+    <string name="ok">OK</string>
+</resources>

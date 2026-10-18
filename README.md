@@ -27,7 +27,7 @@
   </div>
   
   <div style="">
-<img alt="Voltascano visualización del voltaje de la batería en Android" src="[https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/Notification%20with%20battery%20voltage.png](https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/refs/heads/main/fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpg)" style="width:300px; display: inline-block; margin-left:30px;"/>
+<img alt="Voltascano visualización del voltaje de la batería en Android" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/refs/heads/main/fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpg" style="width:300px; display: inline-block; margin-left:30px;"/>
 <img alt="Voltascano  visualización del voltaje de la batería en Android" src="https://raw.githubusercontent.com/Eb43/bateryvoltagedisplay/main/request%20for%20displaying%20voltage%20in%20Android%20notification%20area.png" style="width:300px; display: inline-block; margin-left:30px;"/>
 </div>
 

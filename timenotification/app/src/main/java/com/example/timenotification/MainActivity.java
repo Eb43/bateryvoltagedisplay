@@ -41,6 +41,9 @@ public class MainActivity extends Activity {
     private CheckBox autostartCheckBox;
     private static final String PREFS_NAME = "MyPrefs";
     private static final String AUTO_START_KEY = "AutoStart";
+    private static final String FLOATING_OVERLAY_KEY = "FloatingOverlay";
+    private CheckBox floatingOverlayCheckBox;
+    private static final int OVERLAY_PERMISSION_REQUEST_CODE = 2;
     private int[] colors = new int[]{
             Color.parseColor("#A52A2A"),  // Brown
             Color.parseColor("#808080"),  // Grey
@@ -58,7 +61,6 @@ public class MainActivity extends Activity {
     private Button iconScaleMinusButton;
     private Button iconScalePlusButton;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +71,7 @@ public class MainActivity extends Activity {
         voltageTextView = findViewById(R.id.voltageTextView);
         minMaxVoltageTextView = findViewById(R.id.minMaxVoltageTextView);
         autostartCheckBox = findViewById(R.id.autostartCheckBox);
+        floatingOverlayCheckBox = findViewById(R.id.floatingOverlayCheckBox);
 
         textColorRadioGroup = findViewById(R.id.textColorRadioGroup);
         radioBlack = findViewById(R.id.radioBlack);
@@ -203,6 +206,33 @@ public class MainActivity extends Activity {
             }
         });
 
+
+        //Set overlay checkbox listener
+        floatingOverlayCheckBox.setChecked(
+                prefs.getBoolean(FLOATING_OVERLAY_KEY, false));
+
+        floatingOverlayCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                    && !android.provider.Settings.canDrawOverlays(this)) {
+
+                // Do not save the enabled state until permission is granted.
+                floatingOverlayCheckBox.setChecked(false);
+
+                Intent intent = new Intent(
+                        android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + getPackageName()));
+
+                startActivityForResult(intent, OVERLAY_PERMISSION_REQUEST_CODE);
+                return;
+            }
+
+            prefs.edit().putBoolean(FLOATING_OVERLAY_KEY, isChecked).apply();
+
+            Intent serviceIntent = new Intent(this, TimeNotificationService.class);
+            serviceIntent.setAction("UPDATE_OVERLAY");
+            startService(serviceIntent);
+        });
+
         // Set radio group change listener
         textColorRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -226,23 +256,75 @@ public class MainActivity extends Activity {
         });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, NOTIFICATION_PERMISSION_REQUEST_CODE);
-            } else {
-                startNotificationService();
-            }
-        } else {
-            startNotificationService();
+            checkNotificationPermission();
         }
 
 
     }
 
+    private void checkNotificationPermission() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            startNotificationService();
+            return;
+        }
+
+        if (ContextCompat.checkSelfPermission(
+                this, Manifest.permission.POST_NOTIFICATIONS)
+                == PackageManager.PERMISSION_GRANTED) {
+            startNotificationService();
+            return;
+        }
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("R.string.perm_dialog_title")
+                .setMessage(getString(R.string.perm_dialog_message, 20))
+                .setPositiveButton(R.string.ok, (d, which) -> requestNotificationPermission())
+                .create();
+
+        Handler dialogHandler = new Handler(getMainLooper());
+
+        dialog.setOnDismissListener(d ->
+                dialogHandler.removeCallbacksAndMessages(null));
+
+        dialog.show();
+
+        for (int i = 19; i >= 1; i--) {
+            final int seconds = i;
+
+            dialogHandler.postDelayed(() -> {
+                if (dialog.isShowing()) {
+                    dialog.setMessage(getString(R.string.perm_dialog_message, seconds));
+                }
+            }, (20 - i) * 1000L);
+        }
+
+        dialogHandler.postDelayed(() -> {
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+                requestNotificationPermission();
+            }
+        }, 20000);
+    }
+
+    private void requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                && ContextCompat.checkSelfPermission(
+                this, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{Manifest.permission.POST_NOTIFICATIONS},
+                    NOTIFICATION_PERMISSION_REQUEST_CODE
+            );
+        }
+    }
+
     private void showAutostartDialog() {
         final AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Autostart Permission Needed")
-                .setMessage("Enable autostart permission to ensure notifications work reliably after reboot.")
-                .setPositiveButton("OPEN SETTINGS", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.autostart_dialog_title)
+                .setMessage(R.string.autostart_dialog_message)
+                .setPositiveButton(R.string.open_settings, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent();
@@ -272,7 +354,7 @@ public class MainActivity extends Activity {
                         }
                     }
                 })
-                .setNegativeButton("OK", null)
+                .setNegativeButton(R.string.ok, null)
                 .setCancelable(true)
                 .create();
 
@@ -306,8 +388,8 @@ public class MainActivity extends Activity {
         int minVoltage = batteryVoltageManager.getMinVoltage();
         int maxVoltage = batteryVoltageManager.getMaxVoltage();
 
-        String minText = "Not recorded";
-        String maxText = "Not recorded";
+        String minText = getString(R.string.not_recorded);
+        String maxText = getString(R.string.not_recorded);
 
         if (minVoltage != -1) {
             minText = String.valueOf(minVoltage / 1000.0) + " V";
@@ -317,7 +399,7 @@ public class MainActivity extends Activity {
             maxText = String.valueOf(maxVoltage / 1000.0) + " V";
         }
 
-        minMaxVoltageTextView.setText("Min (0%): " + minText + " | Max (100%): " + maxText);
+        minMaxVoltageTextView.setText(getString(R.string.min_max_format, minText, maxText));
     }
 
 
@@ -396,6 +478,20 @@ public class MainActivity extends Activity {
                 startNotificationService();
             } else {
                 Log.w(TAG, "Notification permission denied");
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == OVERLAY_PERMISSION_REQUEST_CODE) {
+            boolean granted = Build.VERSION.SDK_INT < Build.VERSION_CODES.M
+                    || android.provider.Settings.canDrawOverlays(this);
+
+            if (granted) {
+                floatingOverlayCheckBox.setChecked(true);
             }
         }
     }

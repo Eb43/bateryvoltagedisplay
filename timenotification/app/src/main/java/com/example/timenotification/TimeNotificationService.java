@@ -21,6 +21,12 @@ import android.widget.RemoteViews;
 import android.content.SharedPreferences;
 import androidx.core.app.NotificationCompat;
 import android.app.UiModeManager;
+import android.graphics.PixelFormat;
+import android.provider.Settings;
+import android.view.Gravity;
+import android.view.WindowManager;
+import android.widget.TextView;
+import android.content.res.Configuration;
 
 public class TimeNotificationService extends Service {
     private BatteryVoltageManager batteryVoltageManager;
@@ -39,6 +45,12 @@ public class TimeNotificationService extends Service {
     private int TEXT_COLOR;
 
     private static final String ICON_SCALE_KEY = "IconScale";
+
+    private static final String FLOATING_OVERLAY_KEY = "FloatingOverlay";
+
+    private WindowManager windowManager;
+    private TextView overlayText;
+    private boolean overlayAdded;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -62,7 +74,7 @@ public class TimeNotificationService extends Service {
         //handler = new Handler(Looper.getMainLooper());
 
         notificationBuilder = new Notification.Builder(this, CHANNEL_ID)
-                .setContentTitle("Battery Voltage")
+                .setContentTitle(getString(R.string.notification_title))
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
                 .setOngoing(true);
 
@@ -96,6 +108,7 @@ public class TimeNotificationService extends Service {
                 String voltageText = String.valueOf(voltage / 1000.0);
                 Log.d(TAG, "BatteryReceiver: Voltage changed -> " + voltageText);
                 notificationManager.notify(NOTIFICATION_ID, createNotification(voltageText));
+                updateFloatingOverlay(voltageText);
             }
         }
     };
@@ -103,6 +116,29 @@ public class TimeNotificationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand: Service started");
+
+        //handles immediate enabling and disabling overlay without waiting for another battery-voltage broadcast
+        if (intent != null && "UPDATE_OVERLAY".equals(intent.getAction())) {
+            SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+
+            if (prefs.getBoolean(FLOATING_OVERLAY_KEY, false)) {
+                IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+                Intent batteryStatus = registerReceiver(null, filter);
+
+                if (batteryStatus != null) {
+                    int voltage = batteryStatus.getIntExtra(
+                            BatteryManager.EXTRA_VOLTAGE, -1);
+
+                    if (voltage > 0) {
+                        updateFloatingOverlay(String.valueOf(voltage / 1000.0));
+                    }
+                }
+            } else {
+                removeFloatingOverlay();
+            }
+
+            return START_STICKY;
+        }
 
 
         // Read latest sticky battery intent immediately (returns null only in rare cases)
@@ -119,11 +155,13 @@ public class TimeNotificationService extends Service {
         }
 
         startForeground(NOTIFICATION_ID, createNotification(initialVoltageText));
+        updateFloatingOverlay(initialVoltageText);
         return START_STICKY;
     }
 
     @Override
     public void onDestroy() {
+        removeFloatingOverlay();
         super.onDestroy();
         Log.d(TAG, "onDestroy: Service destroyed");
         //handler.removeCallbacks(runnable);
@@ -138,8 +176,8 @@ public class TimeNotificationService extends Service {
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Log.d(TAG, "createNotificationChannel: Creating notification channel");
-            CharSequence name = "Battery Voltage Notification Channel";
-            String description = "Channel for displaying battery voltage notifications";
+            CharSequence name = getString(R.string.notification_channel_name);
+            String description = getString(R.string.notification_channel_description);
             int importance = NotificationManager.IMPORTANCE_LOW;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
@@ -175,10 +213,9 @@ public class TimeNotificationService extends Service {
         String expandedText = null;
 
         if (minText.equals("---") || maxText.equals("---")) {
-            expandedText = "\uD83D\uDD0B Battery Voltage: " + voltageText + " V";
+            expandedText = getString(R.string.notification_content_format, voltageText);
         } else {
-            expandedText = "\uD83D\uDD0B Battery Voltage: " + voltageText + " V\n" +
-                    "Min (0%): " + minText + " | Max (100%): " + maxText;
+            expandedText = getString(R.string.notification_expanded_format, voltageText, minText, maxText);
         }
 
 
@@ -194,7 +231,7 @@ public class TimeNotificationService extends Service {
         if (isDarkMode) notificationExpandedLayout.setTextColor(R.id.notification_text_expanded, Color.WHITE);
 
         RemoteViews notificationLayout = new RemoteViews(getPackageName(), R.layout.notification);
-        notificationLayout.setTextViewText(R.id.notification_text, "\uD83D\uDD0B Battery Voltage: "+ voltageText + " V ");
+        notificationLayout.setTextViewText(R.id.notification_text, getString(R.string.notification_content_format, voltageText) + " ");
         if (isDarkMode) notificationLayout.setTextColor(R.id.notification_text, Color.WHITE);
 
         Intent notificationIntent = new Intent(this, MainActivity.class);
@@ -247,5 +284,95 @@ public class TimeNotificationService extends Service {
         String voltageText = batteryVoltageManager.getCurrentBatteryVoltageAsString();
         Log.d(TAG, "getCurrentBatteryVoltage: Current battery voltage is " + voltageText);
         return voltageText;
+    }
+
+    private void updateFloatingOverlay(String voltageText) {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+
+        if (!prefs.getBoolean(FLOATING_OVERLAY_KEY, false)) {
+            removeFloatingOverlay();
+            return;
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && !Settings.canDrawOverlays(this)) {
+            removeFloatingOverlay();
+            return;
+        }
+
+        if (windowManager == null) {
+            windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+        }
+
+        if (overlayText == null) {
+            overlayText = new TextView(this);
+            overlayText.setTextColor(Color.WHITE);
+            overlayText.setPadding(12, 8, 12, 8);
+            applyOverlayTheme();
+
+            int windowType = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+                    ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+                    : WindowManager.LayoutParams.TYPE_PHONE;
+
+            WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    windowType,
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                            | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
+                    PixelFormat.TRANSLUCENT);
+
+            params.gravity = Gravity.TOP | Gravity.END;
+            params.x = 12;
+            params.y = 120;
+
+            try {
+                windowManager.addView(overlayText, params);
+                overlayAdded = true;
+            } catch (Exception e) {
+                Log.e(TAG, "Unable to display floating voltage overlay", e);
+                overlayText = null;
+                overlayAdded = false;
+                return;
+            }
+        }
+
+        int iconScalePercent = prefs.getInt(ICON_SCALE_KEY, 100);
+        overlayText.setTextSize(16 * iconScalePercent / 100f);
+
+        overlayText.setText("\uD83D\uDD0B " + voltageText + " V");
+        applyOverlayTheme();
+    }
+
+    private void removeFloatingOverlay() {
+        if (overlayAdded && windowManager != null && overlayText != null) {
+            try {
+                windowManager.removeView(overlayText);
+            } catch (Exception e) {
+                Log.w(TAG, "Unable to remove floating voltage overlay", e);
+            }
+        }
+
+        overlayText = null;
+        overlayAdded = false;
+    }
+
+    private void applyOverlayTheme() {
+        boolean isDarkMode =
+                (getResources().getConfiguration().uiMode
+                        & Configuration.UI_MODE_NIGHT_MASK)
+                        == Configuration.UI_MODE_NIGHT_YES;
+
+        int backgroundColor = Color.argb(
+                153,
+                isDarkMode ? 0 : 255,
+                isDarkMode ? 0 : 255,
+                isDarkMode ? 0 : 255
+        );
+
+        int textColor = isDarkMode ? Color.WHITE : Color.BLACK;
+
+        overlayText.setBackgroundColor(backgroundColor);
+        overlayText.setTextColor(textColor);
     }
 }
